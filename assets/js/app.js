@@ -180,12 +180,8 @@ function pageHome() {
   const s = DATA.site, b = DATA.bots.items, t = DATA.themes.items, x = DATA.ext.items;
   const featured = b.filter(i => i.featured).slice(0, 5);
   return `
-  <section class="hero">
-    <figure class="hero__art">
-      <img src="${esc(s.art || ART)}" srcset="${esc(s.artSmall || ART_SM)} 900w, ${esc(s.art || ART)} 1600w"
-           sizes="(max-width: 860px) 112vw, 62vw" alt="Сора — девятихвостая кицунэ" fetchpriority="high">
-    </figure>
-    <div class="wrap"><div class="hero__text">
+  <section class="hero"><div class="wrap"><div class="hero__in">
+    <div class="hero__text">
       <span class="kicker">九尾 · архив кицунэ</span>
       <h1>${esc(s.nick || 'Сора')}<em>.</em></h1>
       <p class="hero__sub">${esc(s.tagline || '')}</p>
@@ -200,8 +196,12 @@ function pageHome() {
         <div class="stat"><b>${t.length}</b><span>${plural(t.length, 'тема', 'темы', 'тем')}</span></div>
         <div class="stat"><b>${x.length}</b><span>${plural(x.length, 'расширение', 'расширения', 'расширений')}</span></div>
       </div>
-    </div></div>
-  </section>
+    </div>
+    <figure class="hero__art">
+      <img src="${esc(s.art || ART)}" srcset="${esc(s.artSmall || ART_SM)} 900w, ${esc(s.art || ART)} 1600w"
+           sizes="(max-width: 860px) 100vw, 56vw" alt="Сора — девятихвостая кицунэ" fetchpriority="high">
+    </figure>
+  </div></div></section>
 
   <section class="section"><div class="wrap">
     <div class="section__head">
