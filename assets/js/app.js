@@ -191,7 +191,8 @@ function pin(b, i) {
 }
 
 function toolbar() {
-  const lines = DATA.bots.lines;
+  // линейки без ботов не показываем: фильтр по ним вёл бы в пустоту
+  const lines = DATA.bots.lines.filter(l => DATA.bots.items.some(b => b.line === l.id));
   return `<div class="toolbar">
     <label class="search">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -300,7 +301,8 @@ function pageThemes() {
     <div class="themes">${own.map(themeCard).join('')}</div>
 
     ${rework.length ? `
-    <div class="section__head" style="margin-top:54px">
+    <div class="rule rule--gap"></div>
+    <div class="section__head">
       <div><span class="kicker">не моё, но допилено</span><h2>Переделки</h2>
       <p>Чужие темы, адаптированные под телефон и перекрашенные.
       ${authors ? `Оригиналы — <b>${esc(authors)}</b>, вся заслуга за основу его.` : ''}</p></div>
@@ -335,7 +337,8 @@ function pageExt() {
     <div class="exts">${DATA.ext.items.map(extCard).join('')}</div>
 
     ${blocks.length ? `
-    <div class="section__head" style="margin-top:56px">
+    <div class="rule rule--gap"></div>
+    <div class="section__head">
       <div><span class="kicker">виджеты</span><h2>Внешние блоки</h2>
       ${host.note ? `<p>${esc(host.note)}</p>` : ''}</div>
     </div>

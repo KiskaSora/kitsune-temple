@@ -74,6 +74,52 @@
   --petal-3:   #6f8db0;
 }
 
+/* ------------------------ ОРНАМЕНТЫ ------------------------
+   Узоры и уголки нарисованы SVG прямо здесь и накладываются через mask,
+   поэтому не пикселят, ничего не весят и красятся вместе с палитрой.
+   Полный набор вариантов — на странице kit.html.
+   ------------------------------------------------------------ */
+:root {
+  --c-tl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-width='2' stroke-linecap='square'%3E%3Cpath d='M1 12V1h11'/%3E%3Cpath d='M5 18V7a2 2 0 0 1 2-2h11'/%3E%3C/g%3E%3C/svg%3E");
+  --c-tr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-width='2' stroke-linecap='square' transform='rotate(90 12 12)'%3E%3Cpath d='M1 12V1h11'/%3E%3Cpath d='M5 18V7a2 2 0 0 1 2-2h11'/%3E%3C/g%3E%3C/svg%3E");
+  --c-br: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-width='2' stroke-linecap='square' transform='rotate(180 12 12)'%3E%3Cpath d='M1 12V1h11'/%3E%3Cpath d='M5 18V7a2 2 0 0 1 2-2h11'/%3E%3C/g%3E%3C/svg%3E");
+  --c-bl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-width='2' stroke-linecap='square' transform='rotate(270 12 12)'%3E%3Cpath d='M1 12V1h11'/%3E%3Cpath d='M5 18V7a2 2 0 0 1 2-2h11'/%3E%3C/g%3E%3C/svg%3E");
+
+  --p-sakura: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23000'%3E%3Cellipse cx='12' cy='6.4' rx='3.3' ry='4.8'/%3E%3Cellipse cx='12' cy='6.4' rx='3.3' ry='4.8' transform='rotate(72 12 12)'/%3E%3Cellipse cx='12' cy='6.4' rx='3.3' ry='4.8' transform='rotate(144 12 12)'/%3E%3Cellipse cx='12' cy='6.4' rx='3.3' ry='4.8' transform='rotate(216 12 12)'/%3E%3Cellipse cx='12' cy='6.4' rx='3.3' ry='4.8' transform='rotate(288 12 12)'/%3E%3Ccircle cx='12' cy='12' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
+  --p-hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 32'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.6'%3E%3Cpath d='M14 0 0 8v16l14 8 14-8V8z'/%3E%3Cpath d='M0 8 14 16 28 8M14 16v16'/%3E%3C/g%3E%3C/svg%3E");
+  --p-asa: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.3'%3E%3Cpath d='M16 0v32M0 8l16 8 16-8M0 24l16-8 16 8M0 8v16M32 8v16'/%3E%3C/g%3E%3C/svg%3E");
+  --p-fan: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 25'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M2 24A18 18 0 0 1 38 24'/%3E%3Cpath d='M7.3 24A12.7 12.7 0 0 1 32.7 24'/%3E%3Cpath d='M20 24 3.4 17.1M20 24 7.3 11.3M20 24 13.1 7.4M20 24 20 6M20 24 26.9 7.4M20 24 32.7 11.3M20 24 36.6 17.1'/%3E%3Cpath d='M2 24h36'/%3E%3C/g%3E%3Ccircle cx='20' cy='24' r='1.7' fill='%23000'/%3E%3C/svg%3E");
+}
+
+/* уголки по четырём углам — на всех карточках сайта */
+.corners, .card, .theme, .ext, .block, .line { position: relative; }
+.corners::before,
+.card::before, .theme::before, .ext::before, .block::before, .line::before {
+  content: ""; position: absolute; inset: 7px; z-index: 3; pointer-events: none;
+  background: var(--acc); opacity: .5;
+  -webkit-mask-image: var(--c-tl), var(--c-tr), var(--c-br), var(--c-bl);
+          mask-image: var(--c-tl), var(--c-tr), var(--c-br), var(--c-bl);
+  -webkit-mask-position: left top, right top, right bottom, left bottom;
+          mask-position: left top, right top, right bottom, left bottom;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 15px 15px; mask-size: 15px 15px;
+  transition: opacity .25s;
+}
+.corners:hover::before,
+.card:hover::before, .theme:hover::before, .ext:hover::before,
+.block:hover::before, .line:hover::before { opacity: .85; }
+
+/* двойная линейка — разделитель между блоками */
+.rule,
+.section + .section > .wrap::before,
+.band + .section > .wrap::before {
+  content: ""; display: block;
+  height: 3px; margin: 0 0 clamp(24px, 4vw, 42px);
+  border-top: 1px solid rgba(var(--glow), .38);
+  border-bottom: 1px solid rgba(var(--glow), .38);
+}
+.rule--gap { margin-top: clamp(38px, 6vw, 60px); }
+
 /* ------------------------ БАЗА ------------------------ */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -134,7 +180,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .brand { display: flex; align-items: center; gap: 11px; margin-right: auto; }
 .brand__mark {
   width: 38px; height: 38px; display: grid; place-items: center; flex: none;
-  border-radius: 12px; border: 1px solid var(--line);
+  border-radius: 4px; border: 1px solid var(--line);
   background: var(--glass-2);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 0 22px -6px rgba(var(--glow),.7);
 }
@@ -145,7 +191,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 
 .nav { display: flex; gap: 4px; }
 .nav a {
-  position: relative; padding: 8px 14px; border-radius: 10px;
+  position: relative; padding: 8px 14px; border-radius: 3px;
   font-size: 14px; color: var(--dim); transition: color .2s, background .2s;
 }
 .nav a:hover { color: var(--ink); background: var(--glass); }
@@ -157,7 +203,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 
 .palette-btn, .burger {
   width: 38px; height: 38px; flex: none; display: grid; place-items: center; gap: 4px;
-  border-radius: 12px; border: 1px solid var(--line); background: var(--glass);
+  border-radius: 4px; border: 1px solid var(--line); background: var(--glass);
   cursor: pointer; color: var(--ink);
 }
 .palette-dot {
@@ -210,19 +256,27 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .hero__sub { font-size: clamp(15px, 2vw, 18px); color: var(--dim); max-width: 46ch; margin: 0 0 22px; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
 
+/* Кнопки в стиле «Печать»: квадратные углы, у главной — второй контур внутри */
 .btn {
+  position: relative; overflow: hidden;
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 20px; border-radius: 12px; font-size: 14px; font-weight: 500;
+  padding: 11px 20px; border-radius: 3px; font-size: 14px; font-weight: 500;
+  letter-spacing: .03em;
   border: 1px solid var(--line); background: var(--glass); color: var(--ink);
-  cursor: pointer; transition: transform .18s, box-shadow .2s, background .2s;
+  cursor: pointer; transition: transform .18s, box-shadow .2s, background .2s, border-color .2s;
 }
-.btn:hover { transform: translateY(-2px); background: var(--glass-2); }
+.btn:hover { transform: translateY(-2px); background: var(--glass-2); border-color: rgba(var(--glow),.4); }
 .btn--acc {
-  border-color: rgba(var(--glow),.5);
-  background: linear-gradient(180deg, rgba(var(--glow),.28), rgba(var(--glow),.12));
-  box-shadow: 0 10px 30px -14px rgba(var(--glow),.9);
+  color: #fff; border-color: transparent; letter-spacing: .05em;
+  background: var(--acc);   /* запасной вариант, если браузер не знает color-mix */
+  background: linear-gradient(180deg, var(--acc), color-mix(in srgb, var(--acc) 82%, #000));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.28), 0 9px 24px -13px rgba(var(--glow),1);
 }
-.btn--acc:hover { box-shadow: 0 16px 38px -14px rgba(var(--glow),1); }
+.btn--acc::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 1px;
+  border: 1px solid rgba(255,255,255,.4); pointer-events: none;
+}
+.btn--acc:hover { box-shadow: inset 0 0 0 1px rgba(255,255,255,.45), 0 15px 30px -13px rgba(var(--glow),1); }
 
 .stats { display: flex; gap: 28px; flex-wrap: wrap; }
 .stat b { display: block; font-family: "Cormorant Garamond", serif; font-size: 34px; line-height: 1; color: var(--acc-2); }
@@ -244,13 +298,13 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 22px; }
 .search {
   flex: 1 1 220px; min-width: 0; display: flex; align-items: center; gap: 9px;
-  padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--glass);
+  padding: 10px 14px; border-radius: 3px; border: 1px solid var(--line); background: var(--glass);
 }
 .search input { flex: 1; min-width: 0; border: 0; background: none; color: var(--ink); font: inherit; font-size: 14px; outline: none; }
 .search input::placeholder { color: var(--dim); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
-  padding: 7px 14px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  padding: 7px 14px; border-radius: 3px; font-size: 13px; cursor: pointer;
   border: 1px solid var(--line); background: transparent; color: var(--dim); transition: .18s;
 }
 .chip:hover { color: var(--ink); border-color: rgba(var(--glow),.45); }
@@ -259,7 +313,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 /* ------------------------ ЛИНЕЙКИ ------------------------ */
 .lines { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
 .line {
-  position: relative; min-height: 190px; padding: 20px; border-radius: 18px; overflow: hidden;
+  position: relative; min-height: 190px; padding: 20px; border-radius: 4px; overflow: hidden;
   border: 1px solid var(--line); background: var(--glass); display: flex; flex-direction: column; justify-content: flex-end;
   cursor: pointer; transition: transform .25s, border-color .25s;
 }
@@ -275,7 +329,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 /* ------------------------ КАРТОЧКИ ------------------------ */
 .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
 .card {
-  position: relative; border-radius: 18px; overflow: hidden; cursor: pointer;
+  position: relative; border-radius: 4px; overflow: hidden; cursor: pointer;
   border: 1px solid var(--line); background: var(--glass);
   transition: transform .25s cubic-bezier(.2,.7,.3,1), border-color .25s, box-shadow .25s;
 }
@@ -288,14 +342,21 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .card__body h3 { font-size: 21px; line-height: 1.15; }
 .card__meta { margin: 3px 0 0; font-size: 12px; color: var(--dim); }
 .card__tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+/* Теги «с цветком»: сакура вместо точки-разделителя */
 .tag {
-  font-size: 10.5px; letter-spacing: .06em; padding: 3px 8px; border-radius: 6px;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px; letter-spacing: .06em; padding: 3px 9px; border-radius: 3px;
   border: 1px solid var(--line); color: var(--dim); background: rgba(255,255,255,.03);
+}
+.tag::before {
+  content: ""; flex: none; width: 8px; height: 8px; background: var(--acc); opacity: .75;
+  -webkit-mask: var(--p-sakura) no-repeat 50% / contain;
+          mask: var(--p-sakura) no-repeat 50% / contain;
 }
 .badge {
   position: absolute; top: 12px; left: 12px; z-index: 2;
   font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-  padding: 4px 9px; border-radius: 6px; backdrop-filter: blur(6px);
+  padding: 4px 9px; border-radius: 3px; backdrop-filter: blur(6px);
   background: rgba(var(--glow),.85); color: #fff;
 }
 .badge--soft { background: rgba(0,0,0,.55); color: var(--ink); border: 1px solid var(--line); }
@@ -311,7 +372,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 
 /* ------------------------ ТЕМЫ ------------------------ */
 .themes { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-.theme { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--glass); transition: transform .25s, border-color .25s; }
+.theme { border-radius: 4px; overflow: hidden; border: 1px solid var(--line); background: var(--glass); transition: transform .25s, border-color .25s; }
 .theme:hover { transform: translateY(-4px); border-color: rgba(var(--glow),.5); }
 .theme__shot { aspect-ratio: 16 / 10; background: var(--bg-2); position: relative; overflow: hidden; }
 .theme__shot img { width: 100%; height: 100%; object-fit: cover; }
@@ -319,7 +380,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .theme__body h3 { font-size: 24px; }
 .theme__body p { margin: 6px 0 0; font-size: 13.5px; color: var(--dim); }
 .swatches { display: flex; gap: 6px; margin: 13px 0 14px; flex-wrap: wrap; }
-.sw { width: 20px; height: 20px; border-radius: 6px; border: 1px solid var(--line); }
+.sw { width: 20px; height: 20px; border-radius: 3px; border: 1px solid var(--line); }
 .row { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .theme__orig { margin: 6px 0 0 !important; font-size: 12px; color: var(--acc-2); }
@@ -410,7 +471,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .exts { display: flex; flex-wrap: wrap; gap: 16px; }
 .ext {
   flex: 1 1 340px; max-width: 560px;
-  padding: 22px; border-radius: 18px; border: 1px solid var(--line); background: var(--glass);
+  padding: 22px; border-radius: 4px; border: 1px solid var(--line); background: var(--glass);
   display: flex; flex-direction: column;
 }
 .ext__howto { margin: 12px 0 0; font-size: 12.5px; color: var(--dim); }
@@ -430,7 +491,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .ext .row { margin-top: auto; }
 .install {
   display: flex; align-items: center; gap: 8px; margin-bottom: 14px; padding: 9px 12px;
-  border-radius: 10px; border: 1px dashed var(--line); background: rgba(0,0,0,.18);
+  border-radius: 3px; border: 1px dashed var(--line); background: rgba(0,0,0,.18);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 12px; color: var(--dim);
   overflow: hidden;
 }
@@ -442,16 +503,24 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .host {
   display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
   margin-bottom: 20px; padding: 14px 18px;
-  border-radius: 14px; border: 1px dashed var(--line); background: var(--glass);
+  border-radius: 4px; border: 1px dashed var(--line); background: var(--glass);
   font-size: 14px;
 }
-.host > div { flex: 1 1 260px; }
+.host { position: relative; overflow: hidden; }
+.host::before {                        /* веер, едва заметно, справа */
+  content: ""; position: absolute; right: 0; bottom: -30%; width: 260px; height: 160%;
+  background: var(--acc); opacity: .1; pointer-events: none;
+  -webkit-mask: var(--p-fan) no-repeat 50% 100% / 120px 75px;
+          mask: var(--p-fan) no-repeat 50% 100% / 120px 75px;
+}
+.host > div { flex: 1 1 260px; position: relative; }
 .host span { color: var(--dim); }
+.host .btn { position: relative; }
 
 .blocks { display: flex; flex-wrap: wrap; gap: 16px; }
 .block {
   flex: 1 1 360px; max-width: 580px;
-  padding: 24px; border-radius: 18px;
+  padding: 24px; border-radius: 4px;
   border: 1px solid var(--line); background: var(--glass);
   display: flex; flex-direction: column;
 }
@@ -465,10 +534,17 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .block__feats li { margin-bottom: 5px; }
 .block__perks { margin: 0 0 16px !important; font-size: 12.5px; color: var(--dim); }
 .block__how {
+  position: relative; overflow: hidden;
   margin-bottom: 14px; padding: 14px 16px;
-  border-radius: 12px; background: rgba(var(--glow), .07);
+  border-radius: 3px; background: rgba(var(--glow), .07);
   border: 1px solid rgba(var(--glow), .16);
 }
+.block__how::after {                   /* асаноха подложкой */
+  content: ""; position: absolute; inset: 0; background: var(--acc); opacity: .07; pointer-events: none;
+  -webkit-mask: var(--p-asa) repeat 0 0 / 26px 26px;
+          mask: var(--p-asa) repeat 0 0 / 26px 26px;
+}
+.block__how > * { position: relative; z-index: 1; }
 .block__how b { display: block; margin-bottom: 8px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--acc); }
 .block__how ol { margin: 0; padding-left: 20px; font-size: 13.5px; color: var(--dim); }
 .block__how ol li { margin-bottom: 6px; }
@@ -498,25 +574,25 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .modal__scrim { position: absolute; inset: 0; background: var(--scrim); backdrop-filter: blur(8px); }
 .modal__box {
   position: relative; width: min(880px, 100%); max-height: 90vh; overflow: auto;
-  border-radius: 22px; border: 1px solid var(--line); background: var(--glass-2);
+  border-radius: 6px; border: 1px solid var(--line); background: var(--glass-2);
   backdrop-filter: blur(24px) saturate(1.3); box-shadow: var(--shadow);
   animation: pop .28s cubic-bezier(.2,.8,.3,1);
 }
 @keyframes pop { from { opacity: 0; transform: translateY(18px) scale(.98); } }
 .modal__x {
   position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px;
-  border-radius: 10px; border: 1px solid var(--line); background: rgba(0,0,0,.4);
+  border-radius: 3px; border: 1px solid var(--line); background: rgba(0,0,0,.4);
   color: var(--ink); cursor: pointer;
 }
 .sheet { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 26px; padding: 26px; }
-.sheet__cover { aspect-ratio: 3/4; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+.sheet__cover { aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
 .sheet__cover img { width: 100%; height: 100%; object-fit: cover; }
 .sheet h2 { font-size: 38px; line-height: 1; }
 .sheet__meta { color: var(--dim); font-size: 13px; margin: 6px 0 14px; }
 .sheet__desc { font-size: 15px; }
 .quote {
   margin: 18px 0; padding: 14px 18px; border-left: 2px solid var(--acc);
-  background: rgba(var(--glow),.08); border-radius: 0 12px 12px 0;
+  background: rgba(var(--glow),.08); border-radius: 0 3px 3px 0;
   font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 17px;
 }
 .dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 13.5px; margin: 16px 0; }
@@ -524,7 +600,16 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .dl dd { margin: 0; }
 
 /* ------------------------ ПОДВАЛ ------------------------ */
-.footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 26px 0 40px; }
+.footer {
+  position: relative; overflow: hidden;
+  border-top: 1px solid var(--line); margin-top: 40px; padding: 26px 0 40px;
+}
+.footer::before {                      /* кикко водяным знаком */
+  content: ""; position: absolute; inset: 0; background: var(--acc); opacity: .06; pointer-events: none;
+  -webkit-mask: var(--p-hex) repeat 0 0 / 24px 28px;
+          mask: var(--p-hex) repeat 0 0 / 24px 28px;
+}
+.footer__in { position: relative; }
 .footer__in { width: min(1180px, 100% - 40px); margin-inline: auto; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--dim); }
 .footer a:hover { color: var(--acc-2); }
 .footer__links { display: flex; gap: 16px; margin: 0; }
@@ -550,7 +635,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   .nav {
     position: fixed; top: 62px; left: 12px; right: 12px; z-index: 39;
     flex-direction: column; gap: 2px; padding: 10px;
-    border-radius: 16px; border: 1px solid var(--line); background: var(--glass-2);
+    border-radius: 4px; border: 1px solid var(--line); background: var(--glass-2);
     backdrop-filter: blur(20px); box-shadow: var(--shadow);
     display: none;
   }
