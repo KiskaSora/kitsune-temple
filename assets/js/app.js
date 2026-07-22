@@ -13,8 +13,9 @@ let filter = { line: 'all', q: '', nsfw: true };
 const esc = (s = '') => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /** Обложка-заглушка, пока картинка не залита: градиент из имени + первая буква. */
-function cover(src, name, cls = '') {
-  if (src) return `<img src="${esc(src)}" alt="${esc(name)}" loading="lazy" class="${cls}">`;
+function cover(src, name, cls = '', eager = false) {
+  // в модалке картинка видна сразу — там lazy только мешает
+  if (src) return `<img src="${esc(src)}" alt="${esc(name)}" class="${cls}"${eager ? '' : ' loading="lazy"'}>`;
   let h = 0;
   for (const ch of String(name)) h = (h * 31 + ch.codePointAt(0)) % 360;
   return `<div class="ph ${cls}" style="background:
@@ -318,6 +319,51 @@ function pageThemes() {
   </div></section>`;
 }
 
+function pageMap() {
+  const m = DATA.map || {};
+  const locs = m.locations || [];
+  if (!m.image) return `<section class="section"><div class="wrap"><p class="empty">Карта ещё не залита.</p></div></section>`;
+  return `<section class="board">
+    <div class="wrap">
+      <div class="board__head">
+        <span class="board__stamp">${esc(m.stamp || 'карта')}</span>
+        <h2>${esc(m.title || 'Карта')}</h2>
+        <p>${esc(m.intro || '')}</p>
+      </div>
+
+      <div class="rw">
+        <figure class="rw__map">
+          <img src="${esc(m.image)}" alt="Карта Россвуда">
+          ${locs.map(l => `<button class="rw__pin" style="--x:${+l.x}%;--y:${+l.y}%"
+            data-loc="${esc(l.id)}" aria-label="${esc(l.title)}"><i>${+l.n}</i></button>`).join('')}
+        </figure>
+
+        <aside class="rw__panel" id="rwPanel">${locCard(locs[0], m)}</aside>
+      </div>
+
+      ${(m.effects || []).length ? `
+      <div class="rw__fx">
+        ${m.effects.map(e => `<div class="rw__fxi"><b>${esc(e.title)}</b><p>${esc(e.text)}</p></div>`).join('')}
+      </div>` : ''}
+    </div>
+  </section>`;
+}
+
+/** Панель с описанием локации. */
+function locCard(l, m) {
+  if (!l) return `<p class="empty">${esc((m && m.note) || '')}</p>`;
+  return `<span class="rw__n">${+l.n}</span>
+    <h3>${esc(l.title)}</h3>
+    <p class="rw__sub">${esc(l.sub || '')}</p>
+    <p class="rw__text">${esc(l.text || '')}</p>
+    ${(l.residents || []).length ? `<div class="rw__who">
+      <b>Кто здесь</b>
+      <div class="card__tags">${l.residents.map(r => r.bot
+        ? `<a class="tag" href="#/bots/${esc(r.bot)}">${esc(r.name)}</a>`
+        : `<span class="tag">${esc(r.name)}</span>`).join('')}</div>
+    </div>` : ''}`;
+}
+
 function pagePasta() {
   const line = DATA.bots.lines.find(l => l.page === 'pasta') || {};
   const items = DATA.bots.items.filter(b => b.line === (line.id || 'pasta'));
@@ -379,7 +425,7 @@ function pageAbout() {
 function botSheet(b) {
   const line = DATA.bots.lines.find(l => l.id === b.line);
   return `<div class="sheet">
-    <div><div class="sheet__cover">${cover(b.cover, b.name)}</div></div>
+    <div><div class="sheet__cover">${cover(b.cover, b.name, "", true)}</div></div>
     <div>
       <span class="kicker">${esc(line ? line.title : 'вне линеек')}</span>
       <h2>${esc(b.name)}</h2>
@@ -403,7 +449,7 @@ function botSheet(b) {
 
 function themeSheet(t) {
   return `<div class="sheet">
-    <div><div class="sheet__cover" style="aspect-ratio:9/16">${cover(t.shot, t.name)}</div></div>
+    <div><div class="sheet__cover" style="aspect-ratio:9/16">${cover(t.shot, t.name, "", true)}</div></div>
     <div>
       <span class="kicker">${esc(t.platform || 'тема')}</span>
       <h2>${esc(t.name)}</h2>
@@ -422,7 +468,7 @@ function themeSheet(t) {
 }
 
 /* ------------------------- роутер -------------------------- */
-const ROUTES = { home: pageHome, bots: pageBots, pasta: pagePasta, themes: pageThemes, ext: pageExt, about: pageAbout };
+const ROUTES = { home: pageHome, bots: pageBots, pasta: pagePasta, map: pageMap, themes: pageThemes, ext: pageExt, about: pageAbout };
 
 function render() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
@@ -451,6 +497,14 @@ app.addEventListener('click', e => {
     // деталь открывается поверх той страницы, с которой кликнули
     const cur = location.hash.replace(/^#\/?/, '').split('/')[0];
     location.hash = `#/${ROUTES[cur] ? cur : 'bots'}/${botEl.dataset.bot}`;
+    return;
+  }
+
+  const locEl = e.target.closest('[data-loc]');
+  if (locEl) {
+    const l = (DATA.map.locations || []).find(i => i.id === locEl.dataset.loc);
+    document.getElementById('rwPanel').innerHTML = locCard(l, DATA.map);
+    app.querySelectorAll('.rw__pin').forEach(p => p.classList.toggle('is-on', p === locEl));
     return;
   }
 
@@ -493,9 +547,10 @@ addEventListener('hashchange', render);
 /* ------------------------- загрузка ------------------------ */
 const json = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
 
-Promise.all([json('data/site.json'), json('data/bots.json'), json('data/themes.json'), json('data/extensions.json')])
-  .then(([site, bots, themes, ext]) => {
-    DATA = { site, bots, themes, ext };
+Promise.all([json('data/site.json'), json('data/bots.json'), json('data/themes.json'),
+             json('data/extensions.json'), json('data/map.json')])
+  .then(([site, bots, themes, ext, map]) => {
+    DATA = { site, bots, themes, ext, map };
     document.getElementById('year').textContent = new Date().getFullYear();
     document.getElementById('footerLinks').innerHTML =
       (site.links || []).map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');

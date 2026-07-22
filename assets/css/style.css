@@ -411,6 +411,59 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .band__in h2 { font-size: clamp(30px, 4.6vw, 50px); line-height: 1.02; margin-bottom: 12px; }
 .band__in p { margin: 0 0 22px; color: var(--dim); font-size: 15.5px; }
 
+/* --------------- КАРТА РОССВУДА --------------- */
+.rw { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(18px, 3vw, 38px); align-items: start; }
+
+.rw__map { position: relative; margin: 0; line-height: 0; }
+.rw__map img {
+  width: 100%; height: auto; border-radius: 2px;
+  box-shadow: 0 26px 50px -22px rgba(0,0,0,.95);
+}
+.rw__pin {
+  position: absolute; left: var(--x); top: var(--y); translate: -50% -50%;
+  width: 26px; height: 26px; padding: 0; cursor: pointer;
+  border-radius: 50%; border: 1px solid rgba(183,51,46,.75);
+  background: rgba(18,14,12,.82); color: #e9ddd0;
+  font: 600 11px/1 ui-monospace, Consolas, monospace;
+  display: grid; place-items: center;
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+.rw__pin::after {                      /* пульсирующее кольцо */
+  content: ""; position: absolute; inset: -6px; border-radius: 50%;
+  border: 1px solid rgba(183,51,46,.45); opacity: 0; transition: opacity .25s, transform .25s;
+}
+.rw__pin:hover { transform: translate(-50%, -50%) scale(1.18); background: #b7332e; color: #fff; }
+.rw__pin:hover::after { opacity: 1; transform: scale(1.1); }
+.rw__pin.is-on {
+  background: #b7332e; color: #fff; border-color: #e0685f;
+  box-shadow: 0 0 0 3px rgba(183,51,46,.28), 0 6px 18px -6px rgba(183,51,46,1);
+}
+.rw__pin i { font-style: normal; }
+
+.rw__panel {
+  position: sticky; top: 86px;
+  padding: 22px 24px; border-radius: 2px;
+  border: 1px solid rgba(222,217,208,.14); background: rgba(20,19,17,.72);
+  color: #ded9d0;
+}
+.rw__n {
+  display: inline-block; margin-bottom: 8px; padding: 2px 9px;
+  font: 600 11px/1.5 ui-monospace, Consolas, monospace;
+  color: #d0483f; border: 1px solid rgba(208,72,63,.45); border-radius: 2px;
+}
+.rw__panel h3 { font-size: 27px; color: #f0ebe2; line-height: 1.1; }
+.rw__sub { margin: 2px 0 14px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #8f8880; }
+.rw__text { margin: 0; font-size: 14.5px; line-height: 1.7; color: #c6bfb6; }
+.rw__who { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(222,217,208,.12); }
+.rw__who b { display: block; margin-bottom: 8px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #d0483f; }
+.rw__who .tag { color: #ded9d0; border-color: rgba(222,217,208,.2); }
+.rw__who a.tag:hover { border-color: #b7332e; color: #fff; }
+
+.rw__fx { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 34px; }
+.rw__fxi { padding: 16px 18px; border-radius: 2px; border: 1px solid rgba(222,217,208,.12); background: rgba(20,19,17,.55); }
+.rw__fxi b { display: block; margin-bottom: 6px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #d0483f; }
+.rw__fxi p { margin: 0; font-size: 13.5px; line-height: 1.65; color: #a9a29a; }
+
 /* --------------- ДОСКА УЛИК (крипипаста) --------------- */
 .board {
   --acc: #b7332e;
@@ -650,6 +703,9 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   .nav a { padding: 12px 14px; font-size: 15px; }
   .nav a.is-active::after { display: none; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .rw { grid-template-columns: 1fr; }
+  .rw__panel { position: static; }
+  .rw__pin { width: 22px; height: 22px; font-size: 10px; }
   .pins { grid-template-columns: repeat(auto-fill, minmax(142px, 1fr)); gap: 24px 14px; }
   .pin__cap b { font-size: 17px; }
   .card__body h3 { font-size: 17px; }

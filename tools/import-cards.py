@@ -191,7 +191,18 @@ def main():
             "files": {"card": f"files/bots/{png.name}", "lorebook": ""},
         }
 
-        bot = by_id.get(bot_id)
+        # Сначала ищем бота, у которого уже прописан этот файл: так имя на сайте
+        # может быть каким угодно («Безглазый Джек» вместо «Eyless Jack»),
+        # и повторный импорт не наплодит дублей.
+        card_path = f"files/bots/{png.name}"
+        bot = next((b for b in db["items"] if (b.get("files") or {}).get("card") == card_path), None)
+        if bot is not None:
+            bot_id = bot["id"]
+            cover_rel = f"assets/img/bots/{bot_id}.webp"
+            make_cover(png, COVERS / f"{bot_id}.webp", args.force_cover)
+            found["cover"] = cover_rel
+        else:
+            bot = by_id.get(bot_id)
         if bot is None:
             bot = {
                 "id": bot_id, "name": name, "line": args.line, "tagline": "", "cover": "",

@@ -16,7 +16,6 @@
       "cover": ""
     }
   ],
-
   "items": [
     {
       "id": "gosti",
@@ -24,14 +23,19 @@
       "line": "pasta",
       "tagline": "",
       "cover": "",
-      "tags": ["крипипаста"],
+      "tags": [
+        "крипипаста"
+      ],
       "nsfw": false,
       "tokens": 0,
       "updated": "",
       "featured": true,
       "greeting": "",
       "description": "",
-      "files": { "card": "", "lorebook": "" }
+      "files": {
+        "card": "",
+        "lorebook": ""
+      }
     },
     {
       "id": "proxy",
@@ -39,14 +43,19 @@
       "line": "pasta",
       "tagline": "",
       "cover": "",
-      "tags": ["крипипаста"],
+      "tags": [
+        "крипипаста"
+      ],
       "nsfw": false,
       "tokens": 0,
       "updated": "",
       "featured": true,
       "greeting": "",
       "description": "",
-      "files": { "card": "", "lorebook": "" }
+      "files": {
+        "card": "",
+        "lorebook": ""
+      }
     },
     {
       "id": "jeff",
@@ -54,14 +63,19 @@
       "line": "pasta",
       "tagline": "",
       "cover": "",
-      "tags": ["крипипаста"],
+      "tags": [
+        "крипипаста"
+      ],
       "nsfw": false,
       "tokens": 0,
       "updated": "",
       "featured": true,
       "greeting": "",
       "description": "",
-      "files": { "card": "", "lorebook": "" }
+      "files": {
+        "card": "",
+        "lorebook": ""
+      }
     },
     {
       "id": "laughing-jack",
@@ -69,29 +83,42 @@
       "line": "pasta",
       "tagline": "",
       "cover": "",
-      "tags": ["крипипаста"],
+      "tags": [
+        "крипипаста"
+      ],
       "nsfw": false,
       "tokens": 0,
       "updated": "",
       "featured": true,
       "greeting": "",
       "description": "",
-      "files": { "card": "", "lorebook": "" }
+      "files": {
+        "card": "",
+        "lorebook": ""
+      }
     },
     {
       "id": "eyeless-jack",
       "name": "Безглазый Джек",
       "line": "pasta",
-      "tagline": "",
-      "cover": "",
-      "tags": ["крипипаста"],
-      "nsfw": false,
-      "tokens": 0,
-      "updated": "",
+      "tagline": "Бывший медик, живущий в подвале Особняка",
+      "cover": "assets/img/bots/eyeless-jack.webp",
+      "tags": [
+        "крипипаста",
+        "хоррор",
+        "Россвуд",
+        "18+"
+      ],
+      "nsfw": true,
+      "tokens": 4850,
+      "updated": "2026-07-23",
       "featured": true,
-      "greeting": "",
-      "description": "",
-      "files": { "card": "", "lorebook": "" }
+      "greeting": "Запах ночного дождя обволакивал его. Он слышал, как падают капли, чувствовал их на коже. Но среди всего этого он чувствовал запах её — жертвы.",
+      "description": "Джек Найрас. Бывший студент-медик, которого культ Чернобога лишил глаз и сделал тем, чем он стал. Живёт в подвале Особняка и относится к этому как к отпуску, которого не просил, но на который не жалуется. Вежлив до старомодности, сложён как шкаф — и совершенно не притворяется, будто человеческие органы ему не по вкусу. Никакое проклятие его не заставляет, просто он давно перестал врать себе. Маска ничего не прячет.",
+      "files": {
+        "card": "files/bots/eyeless-jack.png",
+        "lorebook": "files/lore/rosswood.json"
+      }
     }
   ]
 }
