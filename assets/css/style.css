@@ -517,6 +517,13 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .host span { color: var(--dim); }
 .host .btn { position: relative; }
 
+/* скриншот «как это выглядит» — в карточках расширений и блоков */
+.shot {
+  margin: 0 0 14px; border-radius: 3px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--bg-2);
+}
+.shot img { width: 100%; height: auto; max-height: 340px; object-fit: cover; object-position: top center; }
+
 .blocks { display: flex; flex-wrap: wrap; gap: 16px; }
 .block {
   flex: 1 1 360px; max-width: 580px;

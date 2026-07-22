@@ -128,6 +128,7 @@ function extCard(x) {
     </div>
     <p>${esc(x.tagline)}</p>
     ${x.coauthor ? `<p class="ext__co">${esc(x.coauthor)}</p>` : ''}
+    ${shot(x.shot, x.name)}
     <ul>${(x.features || []).map(f => `<li>${esc(f)}</li>`).join('')}</ul>
     ${x.install ? `<div class="install"><code>${esc(x.install)}</code><button class="copy" data-copy="${esc(x.install)}">копировать</button></div>` : ''}
     <div class="row">
@@ -135,6 +136,11 @@ function extCard(x) {
     </div>
     ${x.howto ? `<p class="ext__howto">${esc(x.howto)}</p>` : ''}
   </article>`;
+}
+
+/** Скриншот «как это выглядит». Пустой путь — просто ничего не рисуем. */
+function shot(src, alt) {
+  return src ? `<figure class="shot"><img src="${esc(src)}" alt="${esc(alt || '')}" loading="lazy"></figure>` : '';
 }
 
 /** Внешний блок — виджет для ExtBlocks, ставится импортом JSON, а не по ссылке. */
@@ -147,6 +153,7 @@ function blockCard(x) {
       ${empty ? '<span class="ver ver--soon">в работе</span>' : ''}
     </div>
     ${x.tagline ? `<p class="block__tagline">${esc(x.tagline)}</p>` : ''}
+    ${shot(x.shot, x.name)}
     ${x.description ? `<p>${esc(x.description)}</p>` : ''}
     ${(x.features || []).length ? `<ul class="block__feats">${x.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
     ${(x.perks || []).length ? `<p class="block__perks">${x.perks.map(esc).join(' · ')}</p>` : ''}
