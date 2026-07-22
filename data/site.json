@@ -20,6 +20,7 @@
     "Всё бесплатно. Если что-то сломалось или хочется допилить — пишите, чиню."
   ],
   "links": [
-    { "label": "GitHub", "url": "https://github.com/KiskaSora", "icon": "github" }
+    { "label": "GitHub", "url": "https://github.com/KiskaSora", "icon": "github" },
+    { "label": "Telegram", "url": "https://t.me/sorathem", "icon": "tg" }
   ]
 }

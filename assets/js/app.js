@@ -137,6 +137,32 @@ function extCard(x) {
   </article>`;
 }
 
+/** Внешний блок — виджет для ExtBlocks, ставится импортом JSON, а не по ссылке. */
+function blockCard(x) {
+  const empty = !x.description && !(x.features || []).length;
+  return `<article class="block${empty ? ' block--soon' : ''}">
+    <div class="block__top">
+      ${x.icon ? `<span class="block__icon">${esc(x.icon)}</span>` : ''}
+      <h3>${esc(x.name)}</h3>
+      ${empty ? '<span class="ver ver--soon">в работе</span>' : ''}
+    </div>
+    ${x.tagline ? `<p class="block__tagline">${esc(x.tagline)}</p>` : ''}
+    ${x.description ? `<p>${esc(x.description)}</p>` : ''}
+    ${(x.features || []).length ? `<ul class="block__feats">${x.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
+    ${(x.perks || []).length ? `<p class="block__perks">${x.perks.map(esc).join(' · ')}</p>` : ''}
+    ${(x.steps || []).length ? `<div class="block__how">
+      <b>Как поставить</b>
+      <ol>${x.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+    </div>` : ''}
+    ${x.note ? `<p class="block__note">${esc(x.note)}</p>` : ''}
+    <div class="row">
+      ${x.file
+        ? `<a class="btn btn--acc" href="${esc(x.file)}" download>Скачать ${esc(x.fileName || 'блок')}</a>`
+        : (empty ? '' : `<span class="btn" style="opacity:.55;cursor:default">${esc(x.fileName || 'Файл')} ещё не залит</span>`)}
+    </div>
+  </article>`;
+}
+
 /** Полоса во всю ширину: арт фоном, текст поверх. Всё содержимое — из site.json. */
 function band(b) {
   if (!b || !b.image) return '';
@@ -222,7 +248,7 @@ function pageHome() {
       <div><span class="kicker">миры</span><h2>Линейки</h2>
       <p>Персонажи из одной линейки живут в общем мире и знают друг друга.</p></div>
     </div>
-    <div class="lines">${DATA.bots.lines.map(l => {
+    <div class="lines">${DATA.bots.lines.filter(l => b.some(i => i.line === l.id)).map(l => {
       const n = b.filter(i => i.line === l.id).length;
       return `<article class="line" data-line-go="${esc(l.id)}"${l.page ? ` data-page="${esc(l.page)}"` : ''}>
         ${l.cover ? `<img class="line__bg" src="${esc(l.cover)}" alt="" loading="lazy">` : ''}
@@ -301,10 +327,26 @@ function pagePasta() {
 }
 
 function pageExt() {
+  const host = DATA.ext.host || {};
+  const blocks = DATA.ext.blocks || [];
   return `<section class="section"><div class="wrap">
     <div class="section__head"><div><span class="kicker">код</span><h2>Расширения</h2>
       <p>Ставятся через <b>Extensions → Install extension</b> по ссылке на репозиторий.</p></div></div>
     <div class="exts">${DATA.ext.items.map(extCard).join('')}</div>
+
+    ${blocks.length ? `
+    <div class="section__head" style="margin-top:56px">
+      <div><span class="kicker">виджеты</span><h2>Внешние блоки</h2>
+      ${host.note ? `<p>${esc(host.note)}</p>` : ''}</div>
+    </div>
+    ${host.url ? `<div class="host">
+      <div>
+        <b>Сначала нужен ${esc(host.name)}</b>
+        ${host.author ? `<span> — расширение ${esc(host.author)}, не моё</span>` : ''}
+      </div>
+      <a class="btn" href="${esc(host.url)}" target="_blank" rel="noopener">Скачать ${esc(host.name)}</a>
+    </div>` : ''}
+    <div class="blocks">${blocks.map(blockCard).join('')}</div>` : ''}
   </div></section>`;
 }
 
