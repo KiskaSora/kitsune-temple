@@ -137,6 +137,20 @@ function extCard(x) {
   </article>`;
 }
 
+/** Полоса во всю ширину: арт фоном, текст поверх. Всё содержимое — из site.json. */
+function band(b) {
+  if (!b || !b.image) return '';
+  return `<section class="band">
+    <div class="band__bg" style="background-image:url('${esc(b.image)}')"></div>
+    <div class="wrap band__in">
+      ${b.kicker ? `<span class="kicker">${esc(b.kicker)}</span>` : ''}
+      <h2>${esc(b.title || '')}</h2>
+      ${b.text ? `<p>${esc(b.text)}</p>` : ''}
+      ${b.cta ? `<a class="btn btn--acc" href="${esc(b.href || '#/bots')}">${esc(b.cta)}</a>` : ''}
+    </div>
+  </section>`;
+}
+
 /** Полароид на доске улик — карточка крипипаста-бота. */
 function pin(b, i) {
   const rot = ((i % 5) - 2) * 1.5;
@@ -218,6 +232,8 @@ function pageHome() {
     }).join('')}</div>
   </div></section>
 
+  ${band(s.band)}
+
   <section class="section"><div class="wrap">
     <div class="section__head">
       <div><span class="kicker">свежее</span><h2>Избранные карточки</h2></div>
@@ -295,7 +311,10 @@ function pageExt() {
 function pageAbout() {
   const s = DATA.site;
   return `<section class="section"><div class="wrap"><div class="about">
-    <figure class="about__art"><img src="${esc(s.artSmall || ART_SM)}" alt="Сора — девятихвостая кицунэ" loading="lazy"></figure>
+    <figure class="about__art">
+      <img src="${esc(s.portrait || ART_SM)}" srcset="${esc(s.portraitSmall || s.portrait || ART_SM)} 520w, ${esc(s.portrait || ART_SM)} 900w"
+           sizes="(max-width: 860px) 92vw, 360px" alt="Сора — портрет">
+    </figure>
     <div class="prose">
       <span class="kicker">кто это вообще</span>
       <h2 style="font-size:clamp(32px,5vw,52px);margin-bottom:14px">${esc(s.nick || 'Сора')}</h2>
