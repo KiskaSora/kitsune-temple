@@ -62,7 +62,9 @@
       "residents": [
         { "name": "Джефф", "bot": "jeff" },
         { "name": "Безглазый Джек", "bot": "eyeless-jack" },
-        { "name": "BEN", "bot": "" }
+        { "name": "BEN", "bot": "" },
+        { "name": "Нина", "bot": "" },
+        { "name": "Хелен", "bot": "" }
       ]
     },
     {

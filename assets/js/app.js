@@ -440,7 +440,7 @@ function botSheet(b) {
       </dl>
       <div class="row">
         ${b.files && b.files.card
-          ? `<a class="btn btn--acc" href="${esc(b.files.card)}" download>Скачать карточку PNG</a>`
+          ? `<a class="btn btn--acc" href="${esc(b.files.card)}" download>Скачать карточку ${b.files.card.toLowerCase().endsWith('.json') ? 'JSON' : 'PNG'}</a>`
           : `<span class="btn" style="opacity:.55;cursor:default">Файл ещё не залит</span>`}
         ${b.files && b.files.lorebook ? `<a class="btn" href="${esc(b.files.lorebook)}" download>Лорбук</a>` : ''}
       </div>
