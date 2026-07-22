@@ -188,9 +188,14 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 }
 .hero__text { max-width: 520px; }
 .hero__art {
-  margin: 0; pointer-events: none;
-  /* на широких экранах уезжает в поле за колонкой — но ровно до края окна, не дальше */
-  margin-right: min(0px, calc((1180px - 100vw) / 2 + 8px));
+  /* вылет вправо: ровно ширина свободного поля за колонкой, не больше */
+  --bleed: min(0px, calc((1180px - 100vw) / 2 + 8px));
+  margin: 0 var(--bleed) 0 auto; pointer-events: none;
+  /* ширина = колонка + вылет, но не выше свободной высоты экрана:
+     иначе на низком окне голова уезжает под липкую шапку и это читается
+     как обрезка. 1.39 — пропорции арта (1600×1151). */
+  width: min(calc(100% - var(--bleed)), calc((100vh - 210px) * 1.39));
+  width: min(calc(100% - var(--bleed)), calc((100svh - 210px) * 1.39));
   filter: drop-shadow(0 26px 46px rgba(var(--glow), .22));
   animation: float-art 11s ease-in-out infinite;
 }
@@ -465,7 +470,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   .hero::before { right: -20%; top: 22%; width: 130vw; }
   .hero__in { grid-template-columns: 1fr; gap: 4px; }
   /* -20px = ровно поля .wrap: арт во всю ширину экрана и при этом целиком */
-  .hero__art { order: -1; margin: 0 -20px -2%; animation: none; }
+  .hero__art { order: -1; width: auto; margin: 0 -20px -2%; animation: none; }
   .hero__text { max-width: none; }
   .about__art img { width: 100%; margin-left: 0; }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
