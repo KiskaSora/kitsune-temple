@@ -86,7 +86,16 @@ function closeModal() {
   document.body.style.overflow = '';
   if (location.hash.split('/').length > 2) history.replaceState(null, '', '#/' + location.hash.split('/')[1]);
 }
-modal.addEventListener('click', e => { if (e.target.dataset.close !== undefined) closeModal(); });
+modal.addEventListener('click', e => {
+  // переключение аватарок в галерее персонажа
+  const thumb = e.target.closest('[data-img]');
+  if (thumb) {
+    document.getElementById('sheetCover').innerHTML = cover(thumb.dataset.img, '', '', true);
+    modalBody.querySelectorAll('.thumb').forEach(t => t.classList.toggle('is-on', t === thumb));
+    return;
+  }
+  if (e.target.dataset.close !== undefined) closeModal();
+});
 addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
 
 /* ------------------------- блоки --------------------------- */
@@ -289,10 +298,13 @@ function pageHome() {
 
 function pageBots() {
   const list = filtered();
+  // если выбрана линейка со своим баннером — показываем его над сеткой
+  const line = DATA.bots.lines.find(l => l.id === filter.line);
   return `<section class="section"><div class="wrap">
     <div class="section__head"><div><span class="kicker">карточки персонажей</span><h2>Боты</h2>
       <p>Нажми на карточку, чтобы увидеть описание, приветствие и ссылку на скачивание.</p></div></div>
     ${toolbar()}
+    ${line && line.banner ? `<figure class="line-banner"><img src="${esc(line.banner)}" alt="${esc(line.title)}"></figure>` : ''}
     ${list.length
       ? `<div class="grid">${list.map(botCard).join('')}</div>`
       : `<p class="empty">Ничего не нашлось. Попробуй другой запрос.</p>`}
@@ -425,8 +437,14 @@ function pageAbout() {
 
 function botSheet(b) {
   const line = DATA.bots.lines.find(l => l.id === b.line);
+  const gallery = (b.gallery || []).filter(Boolean);
   return `<div class="sheet">
-    <div><div class="sheet__cover">${cover(b.cover, b.name, "", true)}</div></div>
+    <div>
+      <div class="sheet__cover" id="sheetCover">${cover(b.cover, b.name, "", true)}</div>
+      ${gallery.length > 1 ? `<div class="sheet__thumbs">${gallery.map((g, i) =>
+        `<button class="thumb${i === 0 ? ' is-on' : ''}" data-img="${esc(g)}">
+          <img src="${esc(g)}" alt=""></button>`).join('')}</div>` : ''}
+    </div>
     <div>
       <span class="kicker">${esc(line ? line.title : 'вне линеек')}</span>
       <h2>${esc(b.name)}</h2>
