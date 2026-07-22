@@ -319,13 +319,14 @@ function pageThemes() {
   </div></section>`;
 }
 
-function pageMap() {
+/** Блок карты Россвуда — часть страницы крипипасты. */
+function mapBlock() {
   const m = DATA.map || {};
   const locs = m.locations || [];
-  if (!m.image) return `<section class="section"><div class="wrap"><p class="empty">Карта ещё не залита.</p></div></section>`;
-  return `<section class="board">
-    <div class="wrap">
-      <div class="board__head">
+  if (!m.image) return '';
+  return `
+      <div class="board__rule" aria-hidden="true"></div>
+      <div class="board__head" id="rosswood">
         <span class="board__stamp">${esc(m.stamp || 'карта')}</span>
         <h2>${esc(m.title || 'Карта')}</h2>
         <p>${esc(m.intro || '')}</p>
@@ -344,9 +345,7 @@ function pageMap() {
       ${(m.effects || []).length ? `
       <div class="rw__fx">
         ${m.effects.map(e => `<div class="rw__fxi"><b>${esc(e.title)}</b><p>${esc(e.text)}</p></div>`).join('')}
-      </div>` : ''}
-    </div>
-  </section>`;
+      </div>` : ''}`;
 }
 
 /** Панель с описанием локации. */
@@ -377,6 +376,8 @@ function pagePasta() {
       ${items.length
         ? `<div class="pins">${items.map(pin).join('')}</div>`
         : `<p class="empty">Папка пуста.</p>`}
+
+      ${mapBlock()}
     </div>
   </section>`;
 }
@@ -468,14 +469,16 @@ function themeSheet(t) {
 }
 
 /* ------------------------- роутер -------------------------- */
-const ROUTES = { home: pageHome, bots: pageBots, pasta: pagePasta, map: pageMap, themes: pageThemes, ext: pageExt, about: pageAbout };
+// map — старый адрес карты, теперь она живёт внутри страницы крипипасты
+const ROUTES = { home: pageHome, bots: pageBots, pasta: pagePasta, map: pagePasta, themes: pageThemes, ext: pageExt, about: pageAbout };
 
 function render() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   const route = ROUTES[parts[0]] ? parts[0] : 'home';
 
   app.innerHTML = ROUTES[route]();
-  document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('is-active', a.dataset.route === route));
+  const navRoute = route === 'map' ? 'pasta' : route;   // карта — часть крипипасты
+  document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('is-active', a.dataset.route === navRoute));
   scrollTo({ top: 0, behavior: parts[1] ? 'auto' : 'smooth' });
 
   // детальная карточка открывается поверх списка: #/bots/mori
