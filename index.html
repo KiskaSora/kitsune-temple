@@ -1,0 +1,52 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сора — боты, темы и расширения для SillyTavern</title>
+<meta name="description" content="Личная коллекция Соры: карточки персонажей, темы оформления и расширения для SillyTavern.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<div class="grain" aria-hidden="true"></div>
+<div class="embers" id="embers" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#/">
+    <span class="brand__mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32"><path d="M4 4l7 3 5 6 5-6 7-3-2 12c0 6-4.5 12-10 12S6 22 6 16z"/><circle cx="12" cy="15" r="1.4"/><circle cx="20" cy="15" r="1.4"/></svg>
+    </span>
+    <span class="brand__text"><b>Сора</b><i>лисьи архивы</i></span>
+  </a>
+
+  <nav class="nav" id="nav">
+    <a href="#/" data-route="home">Главная</a>
+    <a href="#/bots" data-route="bots">Боты</a>
+    <a href="#/themes" data-route="themes">Темы</a>
+    <a href="#/ext" data-route="ext">Расширения</a>
+    <a href="#/about" data-route="about">Об авторе</a>
+  </nav>
+
+  <button class="palette-btn" id="paletteBtn" aria-label="Сменить палитру" title="Сменить палитру">
+    <span class="palette-dot"></span>
+  </button>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</header>
+
+<main id="app"></main>
+
+<footer class="footer">
+  <div class="footer__in">
+    <p>© <span id="year"></span> Сора · сделано для <a href="https://github.com/SillyTavern/SillyTavern" target="_blank" rel="noopener">SillyTavern</a></p>
+    <p class="footer__links" id="footerLinks"></p>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal__scrim" data-close></div>
+  <div class="modal__box" role="dialog" aria-modal="true">
+    <button class="modal__x" data-close aria-label="Закрыть">✕</button>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
