@@ -2,7 +2,9 @@
    Сора — лисьи архивы. Весь сайт собирается из data/*.json
    ========================================================= */
 
-const PALETTES = ['foxfire', 'moonlit', 'momiji', 'washi'];
+const PALETTES = ['higanbana', 'kitsunebi', 'sakura', 'moonlit'];
+const ART = 'assets/img/sora.webp';
+const ART_SM = 'assets/img/sora-900.webp';
 const app = document.getElementById('app');
 let DATA = { site: {}, bots: { lines: [], items: [] }, themes: { items: [] }, ext: { items: [] } };
 let filter = { line: 'all', q: '', nsfw: true };
@@ -36,24 +38,32 @@ function setPalette(name) {
   try { localStorage.setItem('sora-palette', name); } catch {}
 }
 document.getElementById('paletteBtn').onclick = () => {
-  const i = PALETTES.indexOf(document.documentElement.dataset.palette || 'foxfire');
+  const i = PALETTES.indexOf(document.documentElement.dataset.palette || PALETTES[0]);
   setPalette(PALETTES[(i + 1) % PALETTES.length]);
 };
-try { setPalette(localStorage.getItem('sora-palette') || 'foxfire'); } catch { setPalette('foxfire'); }
+try {
+  const saved = localStorage.getItem('sora-palette');
+  setPalette(PALETTES.includes(saved) ? saved : PALETTES[0]);
+} catch { setPalette(PALETTES[0]); }
 
-/* ------------------------- искры --------------------------- */
-(function embers() {
+/* ------------------------- лепестки ------------------------ */
+(function petals() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const box = document.getElementById('embers');
-  for (let i = 0; i < 26; i++) {
-    const e = document.createElement('i');
-    e.className = 'ember';
-    e.style.left = Math.random() * 100 + 'vw';
-    e.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px');
-    e.style.animationDuration = (14 + Math.random() * 16) + 's';
-    e.style.animationDelay = (-Math.random() * 25) + 's';
-    e.style.opacity = .3 + Math.random() * .6;
-    box.appendChild(e);
+  const box = document.getElementById('petals');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('i');
+    const size = 7 + Math.random() * 9;
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.width = size + 'px';
+    p.style.height = size * (.8 + Math.random() * .5) + 'px';
+    p.style.background = `var(--petal-${1 + (i % 3)})`;
+    p.style.setProperty('--dx', (Math.random() * 220 - 90) + 'px');
+    p.style.setProperty('--spin', (Math.random() * 720 - 360) + 'deg');
+    p.style.setProperty('--o', (.25 + Math.random() * .4).toFixed(2));
+    p.style.animationDuration = (17 + Math.random() * 18) + 's';
+    p.style.animationDelay = (-Math.random() * 30) + 's';
+    box.appendChild(p);
   }
 })();
 
@@ -170,13 +180,13 @@ function pageHome() {
   const s = DATA.site, b = DATA.bots.items, t = DATA.themes.items, x = DATA.ext.items;
   const featured = b.filter(i => i.featured).slice(0, 5);
   return `
-  <section class="hero"><div class="wrap"><div class="hero__in">
-    <div class="portrait">
-      ${cover(s.portrait, 'Сора')}
-      <span class="portrait__tag">九尾 · kitsune</span>
-    </div>
-    <div>
-      <span class="kicker">архив кицунэ</span>
+  <section class="hero">
+    <figure class="hero__art">
+      <img src="${esc(s.art || ART)}" srcset="${esc(s.artSmall || ART_SM)} 900w, ${esc(s.art || ART)} 1600w"
+           sizes="(max-width: 860px) 112vw, 62vw" alt="Сора — девятихвостая кицунэ" fetchpriority="high">
+    </figure>
+    <div class="wrap"><div class="hero__text">
+      <span class="kicker">九尾 · архив кицунэ</span>
       <h1>${esc(s.nick || 'Сора')}<em>.</em></h1>
       <p class="hero__sub">${esc(s.tagline || '')}</p>
       <div class="hero__cta">
@@ -190,8 +200,8 @@ function pageHome() {
         <div class="stat"><b>${t.length}</b><span>${plural(t.length, 'тема', 'темы', 'тем')}</span></div>
         <div class="stat"><b>${x.length}</b><span>${plural(x.length, 'расширение', 'расширения', 'расширений')}</span></div>
       </div>
-    </div>
-  </div></div></section>
+    </div></div>
+  </section>
 
   <section class="section"><div class="wrap">
     <div class="section__head">
@@ -285,7 +295,7 @@ function pageExt() {
 function pageAbout() {
   const s = DATA.site;
   return `<section class="section"><div class="wrap"><div class="about">
-    <div class="portrait">${cover(s.portrait, 'Сора')}<span class="portrait__tag">九尾 · kitsune</span></div>
+    <figure class="about__art"><img src="${esc(s.artSmall || ART_SM)}" alt="Сора — девятихвостая кицунэ" loading="lazy"></figure>
     <div class="prose">
       <span class="kicker">кто это вообще</span>
       <h2 style="font-size:clamp(32px,5vw,52px);margin-bottom:14px">${esc(s.nick || 'Сора')}</h2>

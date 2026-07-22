@@ -5,19 +5,56 @@
 
 /* ------------------------ ПАЛИТРЫ ------------------------ */
 :root,
-:root[data-palette="foxfire"] {           /* Кицунэби — огонь лисы */
-  --bg:        #0d0b0a;
-  --bg-2:      #151110;
-  --ink:       #f0e6dc;
-  --dim:       #a2938a;
-  --line:      rgba(240,230,220,.10);
-  --acc:       #e2622c;
-  --acc-2:     #eab55c;
-  --glass:     rgba(32,25,22,.55);
-  --glass-2:   rgba(46,35,30,.70);
-  --glow:      226,98,44;
-  --scrim:     rgba(8,6,5,.72);
+:root[data-palette="higanbana"] {         /* Ликорис — тёплая бумага, вермильон, золото (светлая) */
+  --bg:        #fbf5ef;
+  --bg-2:      #f4e9df;
+  --ink:       #372628;
+  --dim:       #8a7068;
+  --line:      rgba(55,38,40,.13);
+  --acc:       #d4442f;
+  --acc-2:     #c08a35;
+  --glass:     rgba(255,252,248,.66);
+  --glass-2:   rgba(255,253,250,.85);
+  --glow:      212,68,47;
+  --scrim:     rgba(74,44,42,.42);
+  --shadow:    0 22px 48px -22px rgba(96,56,48,.5);
+  --petal-1:   #e8798c;
+  --petal-2:   #f2c9b4;
+  --petal-3:   #c8202f;
+}
+:root[data-palette="kitsunebi"] {         /* Кицунэби — вермильон и седые хвосты на угле */
+  --bg:        #140f0d;
+  --bg-2:      #1e1613;
+  --ink:       #f6ece2;
+  --dim:       #a89388;
+  --line:      rgba(246,236,226,.11);
+  --acc:       #e2551f;
+  --acc-2:     #e9a85c;
+  --glass:     rgba(40,28,23,.55);
+  --glass-2:   rgba(56,39,32,.72);
+  --glow:      226,85,31;
+  --scrim:     rgba(12,8,6,.74);
   --shadow:    0 24px 60px -20px rgba(0,0,0,.85);
+  --petal-1:   #e2551f;
+  --petal-2:   #f0d5bd;
+  --petal-3:   #c8202f;
+}
+:root[data-palette="sakura"] {            /* Сакура ночью — розовый шёлк и слива */
+  --bg:        #150f16;
+  --bg-2:      #1f1723;
+  --ink:       #f4e6ec;
+  --dim:       #a48ea0;
+  --line:      rgba(244,230,236,.11);
+  --acc:       #e07f9b;
+  --acc-2:     #d9a441;
+  --glass:     rgba(40,28,42,.55);
+  --glass-2:   rgba(56,39,58,.72);
+  --glow:      224,127,155;
+  --scrim:     rgba(12,7,14,.74);
+  --shadow:    0 24px 60px -20px rgba(0,0,0,.85);
+  --petal-1:   #f2a8bd;
+  --petal-2:   #f7dce4;
+  --petal-3:   #c8506e;
 }
 :root[data-palette="moonlit"] {           /* Лунный храм — холод и серебро */
   --bg:        #0a0c11;
@@ -32,34 +69,9 @@
   --glow:      127,168,216;
   --scrim:     rgba(5,7,11,.72);
   --shadow:    0 24px 60px -20px rgba(0,0,0,.85);
-}
-:root[data-palette="momiji"] {            /* Осенний клён — багрянец и золото */
-  --bg:        #120c0d;
-  --bg-2:      #1b1213;
-  --ink:       #f4e7e0;
-  --dim:       #a89089;
-  --line:      rgba(244,231,224,.10);
-  --acc:       #c0413f;
-  --acc-2:     #d9a441;
-  --glass:     rgba(38,24,25,.55);
-  --glass-2:   rgba(54,34,34,.70);
-  --glow:      192,65,63;
-  --scrim:     rgba(10,6,6,.72);
-  --shadow:    0 24px 60px -20px rgba(0,0,0,.85);
-}
-:root[data-palette="washi"] {             /* Васи — бумага, тушь, киноварь (светлая) */
-  --bg:        #efe7da;
-  --bg-2:      #e5dac9;
-  --ink:       #2b241f;
-  --dim:       #7a6b5e;
-  --line:      rgba(43,36,31,.14);
-  --acc:       #b8452c;
-  --acc-2:     #9a7433;
-  --glass:     rgba(255,251,244,.62);
-  --glass-2:   rgba(255,252,246,.82);
-  --glow:      184,69,44;
-  --scrim:     rgba(60,48,40,.45);
-  --shadow:    0 20px 44px -22px rgba(60,44,30,.55);
+  --petal-1:   #9fc0e0;
+  --petal-2:   #dfe9f4;
+  --petal-3:   #6f8db0;
 }
 
 /* ------------------------ БАЗА ------------------------ */
@@ -91,17 +103,18 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   position: fixed; inset: 0; z-index: -1; opacity: .4; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
 }
-.embers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.ember {
-  position: absolute; bottom: -12px; width: 3px; height: 3px; border-radius: 50%;
-  background: rgba(var(--glow),.9);
-  box-shadow: 0 0 8px 2px rgba(var(--glow),.45);
-  animation: rise linear infinite;
+.petals { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.petal {
+  position: absolute; top: -8vh;
+  border-radius: 50% 6% 50% 6%;
+  animation: drift linear infinite;
+  will-change: transform;
 }
-@keyframes rise {
-  from { transform: translate(0,0) scale(1); opacity: 0; }
-  10%  { opacity: .9; }
-  to   { transform: translate(var(--dx,20px), -104vh) scale(.3); opacity: 0; }
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+  8%   { opacity: var(--o, .5); }
+  90%  { opacity: var(--o, .5); }
+  to   { transform: translate3d(var(--dx, 60px), 118vh, 0) rotate(var(--spin, 540deg)); opacity: 0; }
 }
 
 .wrap { width: min(1180px, 100% - 40px); margin-inline: auto; }
@@ -116,7 +129,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   border-bottom: 1px solid var(--line);
 }
-:root[data-palette="washi"] .topbar { background: linear-gradient(180deg, rgba(255,252,246,.7), rgba(255,252,246,0)); }
+:root[data-palette="higanbana"] .topbar { background: linear-gradient(180deg, rgba(255,252,246,.7), rgba(255,252,246,0)); }
 
 .brand { display: flex; align-items: center; gap: 11px; margin-right: auto; }
 .brand__mark {
@@ -156,24 +169,32 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .burger span { display: block; width: 16px; height: 1.5px; background: currentColor; }
 
 /* ------------------------ ГЕРОЙ ------------------------ */
-.hero { position: relative; padding: clamp(28px, 6vw, 70px) 0 clamp(30px, 5vw, 60px); }
-.hero__in { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: clamp(24px, 4vw, 54px); align-items: center; }
-
-.portrait {
-  position: relative; aspect-ratio: 1 / 1; border-radius: 22px; overflow: hidden;
-  border: 1px solid var(--line); background: var(--glass-2); box-shadow: var(--shadow);
+.hero {
+  position: relative; overflow: hidden;
+  padding: clamp(34px, 6vw, 76px) 0 clamp(40px, 6vw, 88px);
+  min-height: min(66vh, 560px);
+  display: flex; align-items: center;
 }
-.portrait img { width: 100%; height: 100%; object-fit: cover; }
-.portrait::after {                    /* низ портрета тает в фон */
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.55));
-  pointer-events: none;
+.hero::before {                        /* тёплое сияние за фигурой */
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  right: -4%; top: 50%; translate: 0 -50%;
+  width: min(70vw, 900px); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(var(--glow),.20), transparent 62%);
 }
-:root[data-palette="washi"] .portrait::after { background: linear-gradient(180deg, transparent 55%, rgba(60,48,40,.35)); }
-.portrait__tag {
-  position: absolute; left: 16px; bottom: 14px; z-index: 2;
-  font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--acc-2);
+.hero__art {
+  position: absolute; z-index: 0; margin: 0; pointer-events: none;
+  right: clamp(-90px, -4vw, 0px); bottom: 0;
+  width: min(62vw, 880px);
+  filter: drop-shadow(0 26px 46px rgba(var(--glow), .22));
+  animation: float-art 11s ease-in-out infinite;
 }
+.hero__art img { width: 100%; height: auto; }
+@keyframes float-art {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+.hero .wrap { position: relative; z-index: 1; width: min(1180px, 100% - 40px); }
+.hero__text { max-width: min(520px, 52%); }
 
 .hero h1 { font-size: clamp(44px, 8vw, 86px); line-height: .95; margin-bottom: 6px; }
 .hero h1 em { font-style: italic; color: var(--acc); }
@@ -276,8 +297,8 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   font-family: "Cormorant Garamond", serif; font-size: clamp(56px, 13vw, 110px);
   color: rgba(255,255,255,.16); line-height: 1;
 }
-:root[data-palette="washi"] .ph { opacity: .32; }
-:root[data-palette="washi"] .ph span { color: rgba(255,255,255,.5); }
+:root[data-palette="higanbana"] .ph { opacity: .32; }
+:root[data-palette="higanbana"] .ph span { color: rgba(255,255,255,.5); }
 
 /* ------------------------ ТЕМЫ ------------------------ */
 .themes { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
@@ -384,7 +405,12 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .copy { flex: none; border: 0; background: none; color: var(--acc-2); cursor: pointer; font: inherit; }
 
 /* ------------------------ ОБ АВТОРЕ ------------------------ */
-.about { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+.about { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: center; }
+.about__art { margin: 0; }
+.about__art img {
+  width: 118%; max-width: none; margin-left: -9%;
+  filter: drop-shadow(0 22px 40px rgba(var(--glow), .22));
+}
 .prose p { color: var(--dim); font-size: 15.5px; }
 .prose p:first-child { color: var(--ink); font-size: 19px; font-family: "Cormorant Garamond", serif; font-style: italic; }
 .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
@@ -430,8 +456,16 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 
 /* ------------------------ МОБИЛКА ------------------------ */
 @media (max-width: 860px) {
-  .hero__in, .about, .sheet { grid-template-columns: 1fr; }
-  .portrait { max-width: 420px; margin-inline: auto; }
+  .about, .sheet { grid-template-columns: 1fr; }
+  .hero { display: block; min-height: 0; padding-top: 6px; }
+  .hero::before { right: -20%; top: 22%; width: 130vw; }
+  .hero__art {
+    position: static; width: 118%; margin: 0 0 -4% -9%;
+    animation: none;
+  }
+  .hero__text { max-width: none; }
+  .about__art img { width: 100%; margin-left: 0; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
   .sheet__cover { max-width: 260px; }
   .burger { display: grid; }
   .nav {
@@ -453,5 +487,5 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
-  .embers { display: none; }
+  .petals { display: none; }
 }
