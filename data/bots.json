@@ -64,8 +64,23 @@
       "files": { "card": "", "lorebook": "" }
     },
     {
-      "id": "jack",
-      "name": "Джек",
+      "id": "laughing-jack",
+      "name": "Смеющийся Джек",
+      "line": "pasta",
+      "tagline": "",
+      "cover": "",
+      "tags": ["крипипаста"],
+      "nsfw": false,
+      "tokens": 0,
+      "updated": "",
+      "featured": true,
+      "greeting": "",
+      "description": "",
+      "files": { "card": "", "lorebook": "" }
+    },
+    {
+      "id": "eyeless-jack",
+      "name": "Безглазый Джек",
       "line": "pasta",
       "tagline": "",
       "cover": "",
