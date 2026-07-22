@@ -190,7 +190,7 @@ function pin(b, i) {
   const rot = ((i % 5) - 2) * 1.5;
   return `<article class="pin" data-bot="${esc(b.id)}" style="--rot:${rot}deg">
     <span class="pin__tape" aria-hidden="true"></span>
-    <div class="pin__photo">${cover(b.cover, b.name)}</div>
+    <div class="pin__photo">${cover(b.cover, b.name, '', true)}</div>
     <div class="pin__cap">
       <b>${esc(b.name)}</b>
       ${b.tagline ? `<small>${esc(b.tagline)}</small>` : '<small class="pin__wip">материал не подшит</small>'}
