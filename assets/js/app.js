@@ -97,7 +97,8 @@ function themeCard(t) {
     <div class="theme__shot">${cover(t.shot, t.name)}</div>
     <div class="theme__body">
       <h3>${esc(t.name)}</h3>
-      <p>${esc(t.tagline)}</p>
+      <p>${esc(t.tagline) || '<i class="muted">описание ещё не написано</i>'}</p>
+      ${t.original ? `<p class="theme__orig">оригинал — ${esc(t.original)}</p>` : ''}
       <div class="swatches">${(t.swatches || []).map(c => `<i class="sw" style="background:${esc(c)}" title="${esc(c)}"></i>`).join('')}</div>
       <div class="row">
         <button class="btn btn--acc" data-theme="${esc(t.id)}">Подробнее</button>
@@ -108,15 +109,34 @@ function themeCard(t) {
 }
 
 function extCard(x) {
-  return `<article class="ext">
-    <h3>${esc(x.name)}</h3>
+  const soon = x.status === 'soon';
+  return `<article class="ext${soon ? ' ext--soon' : ''}">
+    <div class="ext__top">
+      <h3>${esc(x.name)}</h3>
+      ${x.version ? `<span class="ver">v${esc(x.version)}</span>` : ''}
+      ${soon ? '<span class="ver ver--soon">в работе</span>' : ''}
+    </div>
     <p>${esc(x.tagline)}</p>
+    ${x.coauthor ? `<p class="ext__co">${esc(x.coauthor)}</p>` : ''}
     <ul>${(x.features || []).map(f => `<li>${esc(f)}</li>`).join('')}</ul>
-    <div class="install"><code>${esc(x.install)}</code><button class="copy" data-copy="${esc(x.install)}">копировать</button></div>
+    ${x.install ? `<div class="install"><code>${esc(x.install)}</code><button class="copy" data-copy="${esc(x.install)}">копировать</button></div>` : ''}
     <div class="row">
       ${x.repo ? `<a class="btn btn--acc" href="${esc(x.repo)}" target="_blank" rel="noopener">Репозиторий</a>` : ''}
     </div>
     ${x.howto ? `<p class="ext__howto">${esc(x.howto)}</p>` : ''}
+  </article>`;
+}
+
+/** Полароид на доске улик — карточка крипипаста-бота. */
+function pin(b, i) {
+  const rot = ((i % 5) - 2) * 1.5;
+  return `<article class="pin" data-bot="${esc(b.id)}" style="--rot:${rot}deg">
+    <span class="pin__tape" aria-hidden="true"></span>
+    <div class="pin__photo">${cover(b.cover, b.name)}</div>
+    <div class="pin__cap">
+      <b>${esc(b.name)}</b>
+      ${b.tagline ? `<small>${esc(b.tagline)}</small>` : '<small class="pin__wip">материал не подшит</small>'}
+    </div>
   </article>`;
 }
 
@@ -180,7 +200,7 @@ function pageHome() {
     </div>
     <div class="lines">${DATA.bots.lines.map(l => {
       const n = b.filter(i => i.line === l.id).length;
-      return `<article class="line" data-line-go="${esc(l.id)}">
+      return `<article class="line" data-line-go="${esc(l.id)}"${l.page ? ` data-page="${esc(l.page)}"` : ''}>
         ${l.cover ? `<img class="line__bg" src="${esc(l.cover)}" alt="" loading="lazy">` : ''}
         <span class="line__n">${n} ${plural(n, 'карточка', 'карточки', 'карточек')}</span>
         <h3>${esc(l.title)}</h3><p>${esc(l.sub)}</p>
@@ -219,11 +239,39 @@ function pageBots() {
 }
 
 function pageThemes() {
+  const own = DATA.themes.items.filter(t => t.kind !== 'rework');
+  const rework = DATA.themes.items.filter(t => t.kind === 'rework');
+  const authors = [...new Set(rework.map(t => t.original).filter(Boolean))].join(', ');
   return `<section class="section"><div class="wrap">
     <div class="section__head"><div><span class="kicker">оформление</span><h2>Темы</h2>
       <p>Скачай JSON → в SillyTavern: <b>User Settings → Themes → Import</b>.</p></div></div>
-    <div class="themes">${DATA.themes.items.map(themeCard).join('')}</div>
+    <div class="themes">${own.map(themeCard).join('')}</div>
+
+    ${rework.length ? `
+    <div class="section__head" style="margin-top:54px">
+      <div><span class="kicker">не моё, но допилено</span><h2>Переделки</h2>
+      <p>Чужие темы, адаптированные под телефон и перекрашенные.
+      ${authors ? `Оригиналы — <b>${esc(authors)}</b>, вся заслуга за основу его.` : ''}</p></div>
+    </div>
+    <div class="themes">${rework.map(themeCard).join('')}</div>` : ''}
   </div></section>`;
+}
+
+function pagePasta() {
+  const line = DATA.bots.lines.find(l => l.page === 'pasta') || {};
+  const items = DATA.bots.items.filter(b => b.line === (line.id || 'pasta'));
+  return `<section class="board">
+    <div class="wrap">
+      <div class="board__head">
+        <span class="board__stamp">${esc(line.board || 'дело')}</span>
+        <h2>${esc(line.title || 'Крипипаста')}</h2>
+        <p>${esc(line.note || '')}</p>
+      </div>
+      ${items.length
+        ? `<div class="pins">${items.map(pin).join('')}</div>`
+        : `<p class="empty">Папка пуста.</p>`}
+    </div>
+  </section>`;
 }
 
 function pageExt() {
@@ -293,7 +341,7 @@ function themeSheet(t) {
 }
 
 /* ------------------------- роутер -------------------------- */
-const ROUTES = { home: pageHome, bots: pageBots, themes: pageThemes, ext: pageExt, about: pageAbout };
+const ROUTES = { home: pageHome, bots: pageBots, pasta: pagePasta, themes: pageThemes, ext: pageExt, about: pageAbout };
 
 function render() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
@@ -318,13 +366,23 @@ function render() {
 /* ------------------------- события ------------------------- */
 app.addEventListener('click', e => {
   const botEl = e.target.closest('[data-bot]');
-  if (botEl) { location.hash = '#/bots/' + botEl.dataset.bot; return; }
+  if (botEl) {
+    // деталь открывается поверх той страницы, с которой кликнули
+    const cur = location.hash.replace(/^#\/?/, '').split('/')[0];
+    location.hash = `#/${ROUTES[cur] ? cur : 'bots'}/${botEl.dataset.bot}`;
+    return;
+  }
 
   const themeEl = e.target.closest('[data-theme]');
   if (themeEl) { location.hash = '#/themes/' + themeEl.dataset.theme; return; }
 
   const lineGo = e.target.closest('[data-line-go]');
-  if (lineGo) { filter.line = lineGo.dataset.lineGo; location.hash = '#/bots'; return; }
+  if (lineGo) {
+    if (lineGo.dataset.page) { location.hash = '#/' + lineGo.dataset.page; return; }
+    filter.line = lineGo.dataset.lineGo;
+    location.hash = '#/bots';
+    return;
+  }
 
   const chip = e.target.closest('[data-line]');
   if (chip) { filter.line = chip.dataset.line; render(); return; }

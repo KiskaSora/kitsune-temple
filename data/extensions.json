@@ -1,22 +1,167 @@
 {
   "items": [
     {
+      "id": "kitsunedex",
+      "name": "KitsuneDex",
+      "tagline": "Органайзер чатов: скучный список персонажей → красивый браузер",
+      "version": "1.0.0",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/KitsuneDex",
+      "repo": "https://github.com/KiskaSora/KitsuneDex",
+      "features": [
+        "Сетка персонажей с аватарками вместо списка на главной",
+        "Поиск и разбор большой библиотеки ботов"
+      ],
+      "howto": "Extensions → Install extension → вставить ссылку."
+    },
+    {
+      "id": "sillyvn",
+      "name": "Визуальная новелла (VN)",
+      "tagline": "Ответы ИИ как визуальная новелла: полноэкранный плеер со сценами",
+      "version": "1.1.0",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/Sillyvn",
+      "repo": "https://github.com/KiskaSora/Sillyvn",
+      "features": [
+        "Полноэкранный плеер: фон-сцена, диалоговое окно, навигация по репликам",
+        "Кадры расставляет мини-ИИ автоматически либо вы вручную",
+        "Картинки берёт из расширения генерации — VN только раскладывает их по кадрам"
+      ],
+      "howto": "Дружит с SillyImages, но работает и с другими генераторами."
+    },
+    {
       "id": "sillyimages",
       "name": "SillyImages",
       "tagline": "Генерация картинок в чате + гардероб нарядов",
+      "version": "",
       "shot": "",
-      "install": "https://github.com/KiskaSora/sillyimages-public",
-      "repo": "https://github.com/KiskaSora/sillyimages-public",
+      "install": "",
+      "repo": "",
+      "status": "soon",
       "features": [
-        "Картинки прямо в сообщениях — по тегу в ответе бота или вручную, с ретраями и превью референсов",
+        "Картинки прямо в сообщениях — по тегу в ответе бота или вручную, с ретраями",
         "Провайдеры: OpenAI, VoidAI/RouteMyAI, Gemini / nano-banana, Naistera, Electron Hub и свой эндпоинт",
-        "Референсы: аватары {{char}} и {{user}}, NPC по имени, лорбуки с триггерами, картинки из прошлых генераций",
-        "Гардероб — коллекции нарядов; надетый образ уходит референсом в генерацию и текстом в контекст",
-        "Примерка ИИ — фулбоди «персонаж в этом наряде» вместо пары «аватар + наряд»",
-        "Внешность — описания вручную или через Vision AI, per-персонаж и per-персона",
-        "Профили настроек с выбором секций; ключи при экспорте вырезаются"
+        "Референсы: аватары {{char}} и {{user}}, NPC по имени, лорбуки с триггерами",
+        "Гардероб — коллекции нарядов; надетый образ уходит референсом в генерацию",
+        "Примерка ИИ — фулбоди «персонаж в этом наряде»",
+        "Внешность через Vision AI, per-персонаж и per-персона"
       ],
-      "howto": "SillyTavern → Extensions → Install extension → вставить URL репозитория."
+      "howto": "Ещё не выложено на GitHub."
+    },
+    {
+      "id": "translator-suite",
+      "name": "Переводчик: Набор",
+      "tagline": "Два переводчика в одном: слова в чате и поля карточек",
+      "version": "1.0.1",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/translator-suite",
+      "repo": "https://github.com/KiskaSora/translator-suite",
+      "features": [
+        "Двойной клик или тап по слову в сообщении → перевод и словарь",
+        "Кнопка в полях карточек — перевод описаний и World Info",
+        "Единая настройка: цвета, свой CSS, выбор провайдера"
+      ],
+      "howto": "Extensions → Install extension → вставить ссылку."
+    },
+    {
+      "id": "avatargallery",
+      "name": "Avatar Gallery",
+      "tagline": "Галерея аватарок прямо внутри таверны",
+      "version": "3.3.0",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/avatargallery",
+      "repo": "https://github.com/KiskaSora/avatargallery",
+      "features": [
+        "У каждой аватарки свой набор картинок, листается лентой миниатюр",
+        "Выбранная картинка реально становится аватаркой — меняется файл, а не только вид",
+        "Хранится локально в браузере, оформление подстраивается под текущую тему"
+      ],
+      "howto": "Навести курсор на аватарку → значок 🖼 в углу."
+    },
+    {
+      "id": "love-score",
+      "name": "Love Score",
+      "tagline": "Очки любви между тобой и персонажем, прямо в чате",
+      "version": "1.7.0",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/love-score",
+      "repo": "https://github.com/KiskaSora/love-score",
+      "features": [
+        "Виджет-сердечко поверх интерфейса, заполняется по мере роста отношений",
+        "Правила, диапазоны поведения и романтические события генерирует ИИ",
+        "От тебя нужна только одна кнопка"
+      ],
+      "howto": "Extensions → Install extension → вставить ссылку."
+    },
+    {
+      "id": "au-manager",
+      "name": "AU Manager",
+      "tagline": "Менеджер альтернативных вселенных — 68 готовых AU",
+      "version": "2.1.0",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/au-manager",
+      "repo": "https://github.com/KiskaSora/au-manager",
+      "features": [
+        "Каждое АУ — компактный промт на 200–300 токенов, вставляется автоматически",
+        "Библиотека из 68 готовых вселенных плюс свои",
+        "Импорт и экспорт своих АУ"
+      ],
+      "howto": "Extensions → Install extension → вставить ссылку."
+    },
+    {
+      "id": "gamecollection",
+      "name": "Game Collection",
+      "tagline": "Мини-игры прямо в интерфейсе — пока ИИ думает",
+      "version": "1.0.0",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/GameCollection",
+      "repo": "https://github.com/KiskaSora/GameCollection",
+      "coauthor": "Совместное расширение",
+      "features": [
+        "Плавающая игровая кнопка со встроенными мини-играми",
+        "Играешь, не выходя из чата"
+      ],
+      "howto": "Extensions → Install extension → вставить ссылку."
+    },
+    {
+      "id": "floating-css",
+      "name": "Floating CSS Editor",
+      "tagline": "Плавающий редактор CSS поверх чата",
+      "version": "1.1.0",
+      "shot": "",
+      "install": "https://github.com/KiskaSora/Floating-CSS-Editor",
+      "repo": "https://github.com/KiskaSora/Floating-CSS-Editor",
+      "features": [
+        "Перетаскиваемое окно, которое всегда сверху",
+        "Само подхватывает CSS при смене темы",
+        "Счётчик строк и размер файла, сворачивание в шапку или в кнопку",
+        "Интерфейс на русском и английском"
+      ],
+      "howto": "Незаменим, когда правишь тему прямо на телефоне."
+    },
+    {
+      "id": "compat-lab",
+      "name": "Лаборатория совместимости",
+      "tagline": "Внешний блок",
+      "version": "",
+      "shot": "",
+      "install": "",
+      "repo": "",
+      "status": "soon",
+      "features": [],
+      "howto": ""
+    },
+    {
+      "id": "spletnik",
+      "name": "Сплетник",
+      "tagline": "Внешний блок",
+      "version": "",
+      "shot": "",
+      "install": "",
+      "repo": "",
+      "status": "soon",
+      "features": [],
+      "howto": ""
     }
   ]
 }
