@@ -170,15 +170,19 @@
         "Режим «память персонажа» — видит итоги или нет",
         "Мобильная адаптация"
       ],
-      "file": "",
-      "fileName": "compat-lab-block.json",
       "steps": [
         "Поставить расширение ExtBlocks",
         "ExtBlocks → Preset blocks → Import — нижняя кнопка «Import», именно она для одиночного блока",
-        "Импортировать файл compat-lab-block.json",
+        "Импортировать compat-lab-block.json",
         "Написать любое сообщение в чате: после первой реплики в «волшебной палочке» 🪄 появится пункт «Лаборатория»"
       ],
-      "note": "Для карт Таро включи в настройках разрешение на внешние медиа (external media)."
+      "note": "Для карт Таро включи в настройках разрешение на внешние медиа (external media).",
+      "files": [
+        {
+          "name": "compat-lab-block.json",
+          "path": "files/blocks/compat-lab-block.json"
+        }
+      ]
     },
     {
       "id": "spletnik",
@@ -203,15 +207,23 @@
         "Обложка на выбор: аватар или мем, шаблон и едкую подпись ИИ подбирает сам",
         "Настройки: знак зодиака, тон, обложка, автовыпуск каждые N сообщений"
       ],
-      "file": "",
-      "fileName": "",
       "steps": [
         "Поставить расширение ExtBlocks",
         "ExtBlocks → Preset blocks → Import — нижняя кнопка «Import», именно она для одиночного блока",
-        "Импортировать файл блока",
+        "Импортировать ОБА файла по очереди: journalDuo-block.json (сам выпуск) и journalDuoUI-block.json (внешний вид)",
         "Открывается с плавающей кнопки в чате"
       ],
-      "note": ""
+      "note": "Сплетник состоит из двух блоков: один пишет номер, второй его показывает. Без второго газеты не будет.",
+      "files": [
+        {
+          "name": "journalDuo-block.json",
+          "path": "files/blocks/journalDuo-block.json"
+        },
+        {
+          "name": "journalDuoUI-block.json",
+          "path": "files/blocks/journalDuoUI-block.json"
+        }
+      ]
     }
   ]
 }

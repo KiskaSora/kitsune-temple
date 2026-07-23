@@ -174,9 +174,9 @@ function blockCard(x) {
     </div>` : ''}
     ${x.note ? `<p class="block__note">${esc(x.note)}</p>` : ''}
     <div class="row">
-      ${x.file
-        ? `<a class="btn btn--acc" href="${esc(x.file)}" download>Скачать ${esc(x.fileName || 'блок')}</a>`
-        : (empty ? '' : `<span class="btn" style="opacity:.55;cursor:default">${esc(x.fileName || 'Файл')} ещё не залит</span>`)}
+      ${(x.files || []).length
+        ? x.files.map((f, i) => `<a class="btn ${i === 0 ? 'btn--acc' : ''}" href="${esc(f.path)}" download>Скачать ${esc(f.name)}</a>`).join('')
+        : (empty ? '' : `<span class="btn" style="opacity:.55;cursor:default">Файл ещё не залит</span>`)}
     </div>
   </article>`;
 }

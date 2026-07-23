@@ -107,9 +107,18 @@ python tools/import-cards.py --line pasta
 
 Блоки для [ExtBlocks](https://gitgud.io/sleepydraqon/ext-blocks-custom.git) — это не расширения: они не ставятся по ссылке, а импортируются как JSON внутрь уже стоящего ExtBlocks. Поэтому у них отдельный раздел внизу страницы «Расширения», со своей инструкцией.
 
-Живут в `data/extensions.json`, в массиве `blocks` (рядом с `items`). Сам файл блока класть в `files/blocks/` и прописывать путь в поле `file` — тогда появится кнопка скачивания вместо «файл ещё не залит».
+Живут в `data/extensions.json`, в массиве `blocks` (рядом с `items`). Файлы блоков класть в `files/blocks/`.
 
 Поля блока: `icon` (эмодзи), `tagline`, `description`, `features` (что внутри), `perks` (мелкие фишки, выводятся строкой через точку), `steps` (нумерованная инструкция) и `note` (примечание курсивом внизу). Ссылка на сам ExtBlocks и подпись его автора — в объекте `host` там же.
+
+`files` — массив, потому что блок может состоять из нескольких файлов. У Сплетника их два: `journalDuo-block.json` пишет номер, `journalDuoUI-block.json` его показывает. На каждый файл рисуется своя кнопка скачивания:
+
+```json
+"files": [
+  { "name": "journalDuo-block.json",   "path": "files/blocks/journalDuo-block.json" },
+  { "name": "journalDuoUI-block.json", "path": "files/blocks/journalDuoUI-block.json" }
+]
+```
 
 ## Как это делать с телефона
 
