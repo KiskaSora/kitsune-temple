@@ -25,6 +25,23 @@ function cover(src, name, cls = '') {
       <span>${esc(String(name).trim()[0] || '?')}</span></div>`;
 }
 
+/** Обложка «до/после»: одна и та же картинка два раза, у верхней копии
+    левая половина размыта и обрезана по шву. Включается полем "split" у гайда:
+    "split": true — подписи по умолчанию, либо {"bad":"...","good":"..."} — свои.
+    "coverPos" двигает кадр (как object-position), например "50% 22%". */
+function splitCover(src, name, split, pos) {
+  if (!src) return cover(src, name);
+  const s = split && typeof split === 'object' ? split : {};
+  const style = pos ? ` style="object-position:${esc(pos)}"` : '';
+  return `<div class="split">
+    <img class="split__img" src="${esc(src)}" alt="${esc(name)}"${style}>
+    <img class="split__img split__img--soap" src="${esc(src)}" alt=""${style} aria-hidden="true">
+    <span class="split__seam" aria-hidden="true"></span>
+    <span class="split__tag split__tag--bad">${esc(s.bad || 'мыло')}</span>
+    <span class="split__tag split__tag--good">${esc(s.good || 'чётко')}</span>
+  </div>`;
+}
+
 const plural = (n, a, b, c) => {
   const m = n % 100, k = n % 10;
   return m > 4 && m < 21 ? c : k === 1 ? a : k > 1 && k < 5 ? b : c;
@@ -477,7 +494,8 @@ function pageGuides() {
       <p>Разборы того, обо что я сама спотыкалась.</p></div></div>
     ${items.length ? `<div class="guides">${items.map(g => `
       <article class="guide" data-guide="${esc(g.id)}">
-        <div class="guide__cover">${cover(g.cover, g.title)}</div>
+        <div class="guide__cover">${g.split ? splitCover(g.cover, g.title, g.split, g.coverPos)
+                                             : cover(g.cover, g.title)}</div>
         <div class="guide__body">
           <h3>${g.icon ? esc(g.icon) + ' ' : ''}${esc(g.title)}</h3>
           <p>${esc(g.tagline || '')}</p>

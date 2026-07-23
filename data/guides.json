@@ -5,7 +5,9 @@
       "icon": "❓",
       "title": "Как убрать мыло с аватарок",
       "tagline": "Три способа — от расширения в два клика до правки конфига",
-      "cover": "assets/img/guides/deblur-cover.svg",
+      "cover": "assets/img/guides/deblur-art.webp",
+      "coverPos": "50% 34%",
+      "split": { "bad": "мыло", "good": "чётко" },
       "tags": [
         "аватарки",
         "качество",
