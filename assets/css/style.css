@@ -718,6 +718,11 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   border: 1px solid var(--line); background: var(--bg-2);
 }
 .varshot img { width: 100%; height: auto; }
+.varshot--none {
+  aspect-ratio: 9 / 16; display: grid; place-items: center;
+  border-style: dashed; line-height: 1.5;
+}
+.varshot--none span { font-size: 13px; color: var(--dim); }
 
 .shots__tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
 .stab {

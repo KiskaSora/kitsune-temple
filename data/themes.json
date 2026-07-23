@@ -317,16 +317,36 @@
       "id": "first-act",
       "name": "Первый акт",
       "kind": "own",
-      "tagline": "",
+      "tagline": "Театральная: круглый портрет над сценой, розовое на чёрном",
       "shot": "",
-      "description": "",
-      "palettes": [],
-      "swatches": [],
-      "platform": "",
+      "description": "Сообщение как афиша: большой круглый портрет вынесен над текстом, рядом имя, дата, номер и счётчик токенов, а за ними — декорация фоном. Розовое на почти чёрном, заголовки Bebas Neue, текст книжной антиквой. Блок рассуждений подписан «Билет в партер · Акт I», а раскрытый — «Антракт»; вместо иконок в интерфейсе цветы ❀.",
+      "palettes": [
+        "Розовое представление"
+      ],
+      "swatches": [
+        "#111212",
+        "#e6a8c1",
+        "#ebb1ec",
+        "#c6c6be"
+      ],
+      "platform": "ПК",
       "files": {
-        "json": "",
+        "json": "files/themes/first-act/first-act-pink.json",
         "readme": ""
-      }
+      },
+      "variants": [
+        {
+          "name": "Розовое представление",
+          "swatches": [
+            "#111212",
+            "#e6a8c1",
+            "#ebb1ec",
+            "#c6c6be"
+          ],
+          "shots": [],
+          "file": "files/themes/first-act/first-act-pink.json"
+        }
+      ]
     },
     {
       "id": "glass-dark",

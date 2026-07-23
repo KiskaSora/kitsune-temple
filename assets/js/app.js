@@ -576,8 +576,10 @@ function themeSheet(t) {
 
 /** Экран расцветки: сам скрин + переключатель «Чат / Главная / Загрузка». */
 function shotPane(v, si = 0) {
-  const shots = v.shots || [];
-  const s = shots[si] || shots[0] || {};
+  const shots = (v.shots || []).filter(s => s && s.path);
+  if (!shots.length) return `<figure class="varshot varshot--none" id="varShot">
+      <span>скриншота пока нет</span></figure>`;
+  const s = shots[si] || shots[0];
   return `${shots.length > 1 ? `<div class="shots__tabs">${shots.map((x, n) =>
       `<button class="stab${n === si ? ' is-on' : ''}" data-shot="${n}">${esc(x.label)}</button>`).join('')}</div>` : ''}
     <figure class="varshot" id="varShot">${cover(s.path, v.name)}</figure>`;
