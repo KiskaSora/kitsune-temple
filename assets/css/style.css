@@ -636,13 +636,18 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
   position: relative; width: 100%; height: 100%; overflow: hidden;
 }
 .split__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-/* мыльная копия чуть больше кадра — иначе размытие подъедает края
-   и по краям проступает чёткая картинка снизу. Обрезка (clip-path)
-   считается уже после фильтра, поэтому шов остаётся острым. */
-.split__img--soap {
-  inset: -20px; width: calc(100% + 40px); height: calc(100% + 40px);
-  filter: blur(5px) saturate(.82) contrast(.93) brightness(.96);
+/* Мыльная полоса. Обрезка живёт на обёртке ростом ровно с кадр: если резать
+   саму картинку, проценты считаются от неё, а она шире кадра — и край мыла
+   не доезжает до шва. Картинка внутри на 20px больше со всех сторон, иначе
+   размытие съедает края и по краям проступает чёткая копия снизу. */
+.split__soap {
+  position: absolute; inset: 0; overflow: hidden;
   clip-path: inset(0 calc(100% - var(--at)) 0 0);
+}
+.split__soap img {
+  position: absolute; inset: -20px; width: calc(100% + 40px); height: calc(100% + 40px);
+  object-fit: cover;
+  filter: blur(5px) saturate(.82) contrast(.93) brightness(.96);
 }
 .split__seam {
   position: absolute; top: 0; bottom: 0; left: var(--at); width: 0;

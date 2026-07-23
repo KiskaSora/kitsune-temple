@@ -35,7 +35,7 @@ function splitCover(src, name, split, pos) {
   const style = pos ? ` style="object-position:${esc(pos)}"` : '';
   return `<div class="split">
     <img class="split__img" src="${esc(src)}" alt="${esc(name)}"${style}>
-    <img class="split__img split__img--soap" src="${esc(src)}" alt=""${style} aria-hidden="true">
+    <span class="split__soap" aria-hidden="true"><img src="${esc(src)}" alt=""${style}></span>
     <span class="split__seam" aria-hidden="true"></span>
     <span class="split__tag split__tag--bad">${esc(s.bad || 'мыло')}</span>
     <span class="split__tag split__tag--good">${esc(s.good || 'чётко')}</span>
