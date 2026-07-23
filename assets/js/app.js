@@ -176,6 +176,29 @@ function extCard(x) {
   </article>`;
 }
 
+/** Мини-разметка внутри текста гайдов: **жирный**, `код`, [ссылка](url).
+    Сначала экранируем всё, потом размечаем — чужой HTML внутрь не пролезет. */
+function md(s) {
+  return esc(s)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+/** Блок статьи гайда. */
+function guideBlock(b) {
+  switch (b.t) {
+    case 'h':    return `<h3 class="gd__h">${md(b.text)}</h3>`;
+    case 'step': return `<h3 class="gd__step"><i>${+b.n}</i>${md(b.title)}</h3>`;
+    case 'img':  return `<figure class="gd__img">${cover(b.src, b.cap || '')}
+                    ${b.cap ? `<figcaption>${md(b.cap)}</figcaption>` : ''}</figure>`;
+    case 'code': return `<pre class="gd__code"><code>${esc(b.text)}</code></pre>`;
+    case 'warn': return `<p class="gd__warn">${md(b.text)}</p>`;
+    default:     return `<p>${md(b.text)}</p>`;
+  }
+}
+
 /** Скриншот «как это выглядит». Пустой путь — просто ничего не рисуем. */
 function shot(src, alt) {
   return src ? `<figure class="shot"><img src="${esc(src)}" alt="${esc(alt || '')}"></figure>` : '';
@@ -447,6 +470,41 @@ function pageExt() {
   </div></section>`;
 }
 
+function pageGuides() {
+  const items = (DATA.guides && DATA.guides.items) || [];
+  return `<section class="section"><div class="wrap">
+    <div class="section__head"><div><span class="kicker">как это чинится</span><h2>Гайды</h2>
+      <p>Разборы того, обо что я сама спотыкалась.</p></div></div>
+    ${items.length ? `<div class="guides">${items.map(g => `
+      <article class="guide" data-guide="${esc(g.id)}">
+        <div class="guide__cover">${cover(g.cover, g.title)}</div>
+        <div class="guide__body">
+          <h3>${g.icon ? esc(g.icon) + ' ' : ''}${esc(g.title)}</h3>
+          <p>${esc(g.tagline || '')}</p>
+          <div class="card__tags">${(g.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+        </div>
+      </article>`).join('')}</div>`
+      : `<p class="empty">Гайдов пока нет.</p>`}
+  </div></section>`;
+}
+
+function pageGuide(id) {
+  const g = ((DATA.guides && DATA.guides.items) || []).find(x => x.id === id);
+  if (!g) return pageGuides();
+  return `<section class="section"><div class="wrap">
+    <a class="back" href="#/guides">← все гайды</a>
+    <article class="gd">
+      <span class="kicker">гайд</span>
+      <h1 class="gd__title">${g.icon ? esc(g.icon) + ' ' : ''}${esc(g.title)}</h1>
+      <p class="gd__lead">${esc(g.tagline || '')}</p>
+      <div class="card__tags" style="margin-bottom:26px">${(g.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('')}
+        ${g.updated ? `<span class="tag">${esc(dateRu(g.updated))}</span>` : ''}</div>
+      <div class="rule"></div>
+      ${(g.blocks || []).map(guideBlock).join('')}
+    </article>
+  </div></section>`;
+}
+
 function pageAbout() {
   const s = DATA.site;
   return `<section class="section"><div class="wrap"><div class="about">
@@ -555,16 +613,25 @@ function variantSheet(t, vs, i) {
 
 /* ------------------------- роутер -------------------------- */
 // map — старый адрес карты, теперь она живёт внутри страницы крипипасты
-const ROUTES = { home: pageHome, bots: pageBots, pasta: pagePasta, map: pagePasta, themes: pageThemes, ext: pageExt, about: pageAbout };
+const ROUTES = { home: pageHome, bots: pageBots, pasta: pagePasta, map: pagePasta,
+                 themes: pageThemes, ext: pageExt, guides: pageGuides, about: pageAbout };
 
 function render() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   const route = ROUTES[parts[0]] ? parts[0] : 'home';
 
-  app.innerHTML = ROUTES[route]();
+  // гайд — не карточка поверх списка, а отдельная страница: он длинный
+  const isGuide = route === 'guides' && parts[1];
+  app.innerHTML = isGuide ? pageGuide(parts[1]) : ROUTES[route]();
+
   const navRoute = route === 'map' ? 'pasta' : route;   // карта — часть крипипасты
   document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('is-active', a.dataset.route === navRoute));
   scrollTo({ top: 0, behavior: parts[1] ? 'auto' : 'smooth' });
+
+  if (isGuide) {
+    if (!modal.hidden) { modal.hidden = true; document.body.style.overflow = ''; }
+    return;
+  }
 
   // детальная карточка открывается поверх списка: #/bots/mori
   if (parts[1]) {
@@ -587,6 +654,9 @@ app.addEventListener('click', e => {
     location.hash = `#/${ROUTES[cur] ? cur : 'bots'}/${botEl.dataset.bot}`;
     return;
   }
+
+  const guideEl = e.target.closest('[data-guide]');
+  if (guideEl) { location.hash = '#/guides/' + guideEl.dataset.guide; return; }
 
   const locEl = e.target.closest('[data-loc]');
   if (locEl) {
@@ -640,9 +710,9 @@ const VER = (document.querySelector('script[src*="app.js"]')?.src.split('?v=')[1
 const json = p => fetch(`${p}?v=${VER}`).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
 
 Promise.all([json('data/site.json'), json('data/bots.json'), json('data/themes.json'),
-             json('data/extensions.json'), json('data/map.json')])
-  .then(([site, bots, themes, ext, map]) => {
-    DATA = { site, bots, themes, ext, map };
+             json('data/extensions.json'), json('data/map.json'), json('data/guides.json')])
+  .then(([site, bots, themes, ext, map, guides]) => {
+    DATA = { site, bots, themes, ext, map, guides };
     document.getElementById('year').textContent = new Date().getFullYear();
     document.getElementById('footerLinks').innerHTML =
       (site.links || []).map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
