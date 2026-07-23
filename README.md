@@ -97,10 +97,16 @@ python tools/import-cards.py --line pasta
 "variants": [
   { "name": "Роза",
     "swatches": ["#1b1016", "#ecb6c6", "#f7d9e2", "#c69aa8"],
-    "shot": "assets/img/themes/pearl/roza.webp",
+    "shots": [
+      { "label": "Чат",      "path": "assets/img/themes/pearl/roza.webp" },
+      { "label": "Главная",  "path": "assets/img/themes/pearl/roza-main.webp" },
+      { "label": "Загрузка", "path": "assets/img/themes/pearl/roza-load.webp" }
+    ],
     "file": "files/themes/pearl/pearl-roza.json" }
 ]
 ```
+
+`shots` — массив экранов. Если он один, переключателя не будет; если несколько — над скриншотом появятся вкладки. Скриншоты показываются целиком, ничего не обрезается, так что вертикальные телефонные кадры видно от шапки до поля ввода.
 
 Расцветки Перламутра заведены скриптом: он разобрал `custom_css` каждого файла, вытащил оттуда настоящие `--pl-bg`, `--pl-pearl`, `--pl-quote-fg` и `--pl-steel` и сжал скриншоты. Так что кружки показывают ровно те цвета, что в самой теме, а не подобранные на глаз.
 

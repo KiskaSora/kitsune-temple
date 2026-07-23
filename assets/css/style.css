@@ -374,8 +374,10 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .themes { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 .theme { border-radius: 4px; overflow: hidden; border: 1px solid var(--line); background: var(--glass); transition: transform .25s, border-color .25s; }
 .theme:hover { transform: translateY(-4px); border-color: rgba(var(--glow),.5); }
-.theme__shot { aspect-ratio: 16 / 10; background: var(--bg-2); position: relative; overflow: hidden; }
-.theme__shot img { width: 100%; height: 100%; object-fit: cover; }
+/* скрины тем вертикальные (телефон): кадр повыше и показываем верх экрана —
+   аватарку с именем, по ней тема и узнаётся */
+.theme__shot { aspect-ratio: 4 / 5; background: var(--bg-2); position: relative; overflow: hidden; }
+.theme__shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .theme__body { padding: 16px 18px 18px; }
 .theme__body h3 { font-size: 24px; }
 .theme__body p { margin: 6px 0 0; font-size: 13.5px; color: var(--dim); }
@@ -652,6 +654,22 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 }
 .sheet { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 26px; padding: 26px; }
 .sheet__cover { aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+
+/* скрин темы: показываем ЦЕЛИКОМ, без обрезки верха и низа */
+.varshot {
+  margin: 0; border-radius: 4px; overflow: hidden; line-height: 0;
+  border: 1px solid var(--line); background: var(--bg-2);
+}
+.varshot img { width: 100%; height: auto; }
+
+.shots__tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.stab {
+  padding: 5px 12px; font: inherit; font-size: 12px; cursor: pointer;
+  border-radius: 3px; border: 1px solid var(--line); background: transparent; color: var(--dim);
+  transition: color .18s, border-color .18s, background .18s;
+}
+.stab:hover { color: var(--ink); border-color: rgba(var(--glow), .45); }
+.stab.is-on { color: var(--ink); border-color: rgba(var(--glow), .7); background: rgba(var(--glow), .12); }
 
 /* выбор расцветки темы */
 .vars { margin: 18px 0 4px; }

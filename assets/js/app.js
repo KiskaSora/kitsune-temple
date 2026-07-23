@@ -88,18 +88,30 @@ function closeModal() {
   if (location.hash.split('/').length > 2) history.replaceState(null, '', '#/' + location.hash.split('/')[1]);
 }
 modal.addEventListener('click', e => {
+  const sheet = modalBody.querySelector('[data-theme-id]');
+
   // переключение расцветок темы
   const varEl = e.target.closest('[data-var]');
-  if (varEl) {
-    const id = modalBody.querySelector('[data-theme-id]').dataset.themeId;
-    const t = DATA.themes.items.find(x => x.id === id);
-    const v = t.variants[+varEl.dataset.var];
-    document.getElementById('varShot').innerHTML = cover(v.shot, v.name);
+  if (varEl && sheet) {
+    const t = DATA.themes.items.find(x => x.id === sheet.dataset.themeId);
+    const i = +varEl.dataset.var;
+    const v = t.variants[i];
+    sheet.dataset.varI = i;
+    document.getElementById('varPane').innerHTML = shotPane(v);   // экран сбрасываем на «Чат»
     document.getElementById('varName').textContent = v.name;
     const dl = document.getElementById('varDl');
     dl.href = v.file;
     dl.textContent = `Скачать «${v.name}»`;
     modalBody.querySelectorAll('.var').forEach(b => b.classList.toggle('is-on', b === varEl));
+    return;
+  }
+
+  // переключение вида экрана внутри расцветки
+  const stab = e.target.closest('[data-shot]');
+  if (stab && sheet) {
+    const t = DATA.themes.items.find(x => x.id === sheet.dataset.themeId);
+    const v = t.variants[+sheet.dataset.varI || 0];
+    document.getElementById('varPane').innerHTML = shotPane(v, +stab.dataset.shot);
     return;
   }
 
@@ -504,11 +516,20 @@ function themeSheet(t) {
   </div>`;
 }
 
+/** Экран расцветки: сам скрин + переключатель «Чат / Главная / Загрузка». */
+function shotPane(v, si = 0) {
+  const shots = v.shots || [];
+  const s = shots[si] || shots[0] || {};
+  return `${shots.length > 1 ? `<div class="shots__tabs">${shots.map((x, n) =>
+      `<button class="stab${n === si ? ' is-on' : ''}" data-shot="${n}">${esc(x.label)}</button>`).join('')}</div>` : ''}
+    <figure class="varshot" id="varShot">${cover(s.path, v.name)}</figure>`;
+}
+
 /** Тема с расцветками: слева скрин выбранной, справа выбор кружками. */
 function variantSheet(t, vs, i) {
   const v = vs[i] || vs[0];
-  return `<div class="sheet" data-theme-id="${esc(t.id)}">
-    <div><div class="sheet__cover" style="aspect-ratio:9/16" id="varShot">${cover(v.shot, v.name)}</div></div>
+  return `<div class="sheet" data-theme-id="${esc(t.id)}" data-var-i="${i}">
+    <div id="varPane">${shotPane(v)}</div>
     <div>
       <span class="kicker">${esc(t.platform || 'тема')}</span>
       <h2>${esc(t.name)}</h2>

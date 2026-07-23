@@ -55,8 +55,21 @@
             "#f1eaf3",
             "#b6aabd"
           ],
-          "shot": "assets/img/themes/pearl/zhemchug.webp",
-          "file": "files/themes/pearl/pearl-zhemchug.json"
+          "file": "files/themes/pearl/pearl-zhemchug.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/zhemchug.webp"
+            },
+            {
+              "label": "Главная",
+              "path": "assets/img/themes/pearl/zhemchug-main.webp"
+            },
+            {
+              "label": "Загрузка",
+              "path": "assets/img/themes/pearl/zhemchug-load.webp"
+            }
+          ]
         },
         {
           "name": "Ваниль",
@@ -66,8 +79,13 @@
             "#6a4423",
             "#766344"
           ],
-          "shot": "assets/img/themes/pearl/vanil.webp",
-          "file": "files/themes/pearl/pearl-vanil.json"
+          "file": "files/themes/pearl/pearl-vanil.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/vanil.webp"
+            }
+          ]
         },
         {
           "name": "Гортензия",
@@ -77,8 +95,13 @@
             "#e9f5fd",
             "#b2cadb"
           ],
-          "shot": "assets/img/themes/pearl/gortenziya.webp",
-          "file": "files/themes/pearl/pearl-gortenziya.json"
+          "file": "files/themes/pearl/pearl-gortenziya.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/gortenziya.webp"
+            }
+          ]
         },
         {
           "name": "Дым",
@@ -88,8 +111,13 @@
             "#eef0f4",
             "#a9adb6"
           ],
-          "shot": "assets/img/themes/pearl/dym.webp",
-          "file": "files/themes/pearl/pearl-dym.json"
+          "file": "files/themes/pearl/pearl-dym.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/dym.webp"
+            }
+          ]
         },
         {
           "name": "Зефир",
@@ -99,8 +127,21 @@
             "#7a2b52",
             "#6f4c5c"
           ],
-          "shot": "assets/img/themes/pearl/zefir.webp",
-          "file": "files/themes/pearl/pearl-zefir.json"
+          "file": "files/themes/pearl/pearl-zefir.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/zefir.webp"
+            },
+            {
+              "label": "Главная",
+              "path": "assets/img/themes/pearl/zefir-main.webp"
+            },
+            {
+              "label": "Загрузка",
+              "path": "assets/img/themes/pearl/zefir-load.webp"
+            }
+          ]
         },
         {
           "name": "Иней",
@@ -110,8 +151,13 @@
             "#2d4a6b",
             "#566b86"
           ],
-          "shot": "assets/img/themes/pearl/iney.webp",
-          "file": "files/themes/pearl/pearl-iney.json"
+          "file": "files/themes/pearl/pearl-iney.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/iney.webp"
+            }
+          ]
         },
         {
           "name": "Лазурь",
@@ -121,8 +167,13 @@
             "#d6e6f7",
             "#93aecb"
           ],
-          "shot": "assets/img/themes/pearl/lazur.webp",
-          "file": "files/themes/pearl/pearl-lazur.json"
+          "file": "files/themes/pearl/pearl-lazur.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/lazur.webp"
+            }
+          ]
         },
         {
           "name": "Мокко",
@@ -132,8 +183,13 @@
             "#f7e0c8",
             "#c0a086"
           ],
-          "shot": "assets/img/themes/pearl/mokko.webp",
-          "file": "files/themes/pearl/pearl-mokko.json"
+          "file": "files/themes/pearl/pearl-mokko.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/mokko.webp"
+            }
+          ]
         },
         {
           "name": "Мята",
@@ -143,8 +199,13 @@
             "#255744",
             "#4f7566"
           ],
-          "shot": "assets/img/themes/pearl/myata.webp",
-          "file": "files/themes/pearl/pearl-myata.json"
+          "file": "files/themes/pearl/pearl-myata.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/myata.webp"
+            }
+          ]
         },
         {
           "name": "Нефрит",
@@ -154,8 +215,13 @@
             "#d7f0e2",
             "#8bb8a0"
           ],
-          "shot": "assets/img/themes/pearl/nefrit.webp",
-          "file": "files/themes/pearl/pearl-nefrit.json"
+          "file": "files/themes/pearl/pearl-nefrit.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/nefrit.webp"
+            }
+          ]
         },
         {
           "name": "Пудра",
@@ -165,8 +231,13 @@
             "#7a3556",
             "#7f5a69"
           ],
-          "shot": "assets/img/themes/pearl/pudra.webp",
-          "file": "files/themes/pearl/pearl-pudra.json"
+          "file": "files/themes/pearl/pearl-pudra.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/pudra.webp"
+            }
+          ]
         },
         {
           "name": "Роза",
@@ -176,8 +247,13 @@
             "#f7d9e2",
             "#c69aa8"
           ],
-          "shot": "assets/img/themes/pearl/roza.webp",
-          "file": "files/themes/pearl/pearl-roza.json"
+          "file": "files/themes/pearl/pearl-roza.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/roza.webp"
+            }
+          ]
         },
         {
           "name": "Румяна",
@@ -187,8 +263,13 @@
             "#7d2a22",
             "#714a45"
           ],
-          "shot": "assets/img/themes/pearl/rumyana.webp",
-          "file": "files/themes/pearl/pearl-rumyana.json"
+          "file": "files/themes/pearl/pearl-rumyana.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/rumyana.webp"
+            }
+          ]
         },
         {
           "name": "Свет",
@@ -198,8 +279,13 @@
             "#553a66",
             "#6a5a7c"
           ],
-          "shot": "assets/img/themes/pearl/svet.webp",
-          "file": "files/themes/pearl/pearl-svet.json"
+          "file": "files/themes/pearl/pearl-svet.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/svet.webp"
+            }
+          ]
         },
         {
           "name": "Слива",
@@ -209,8 +295,21 @@
             "#f2d8f8",
             "#bb93c8"
           ],
-          "shot": "assets/img/themes/pearl/sliva.webp",
-          "file": "files/themes/pearl/pearl-sliva.json"
+          "file": "files/themes/pearl/pearl-sliva.json",
+          "shots": [
+            {
+              "label": "Чат",
+              "path": "assets/img/themes/pearl/sliva.webp"
+            },
+            {
+              "label": "Главная",
+              "path": "assets/img/themes/pearl/sliva-main.webp"
+            },
+            {
+              "label": "Загрузка",
+              "path": "assets/img/themes/pearl/sliva-load.webp"
+            }
+          ]
         }
       ]
     },
