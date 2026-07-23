@@ -653,6 +653,30 @@ h1,h2,h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; 
 .sheet { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 26px; padding: 26px; }
 .sheet__cover { aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
 
+/* выбор расцветки темы */
+.vars { margin: 18px 0 4px; }
+.vars__lbl {
+  display: block; margin-bottom: 10px;
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim);
+}
+.vars__lbl span { color: var(--acc-2); }
+.vars__list { display: flex; flex-wrap: wrap; gap: 7px; }
+.var {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 11px 5px 6px; cursor: pointer; font: inherit; font-size: 12px;
+  color: var(--dim); border-radius: 3px;
+  border: 1px solid var(--line); background: transparent;
+  transition: color .18s, border-color .18s, background .18s;
+}
+.var:hover { color: var(--ink); border-color: rgba(var(--glow), .45); }
+.var.is-on { color: var(--ink); border-color: rgba(var(--glow), .7); background: rgba(var(--glow), .12); }
+.var__dot {
+  display: grid; grid-template-columns: 1fr 1fr; width: 16px; height: 16px;
+  border-radius: 50%; overflow: hidden; flex: none;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.var__dot i { display: block; }
+
 /* галерея аватарок персонажа */
 .sheet__thumbs { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 .thumb {

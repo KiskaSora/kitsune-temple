@@ -5,12 +5,214 @@
       "name": "Перламутр",
       "kind": "own",
       "tagline": "Мобильная, стеклянная, книжная",
-      "shot": "",
-      "description": "Огромная квадратная аватарка, тающая в фон, имя и метаданные прямо на фото, книжный текст с абзацным отступом. Инструменты сообщения свёрнуты под «⋯», чтобы не мешали читать.",
-      "palettes": ["Жемчуг", "Роза", "Лазурь", "Дым", "Пион", "Нефрит", "Аметист", "Свет"],
-      "swatches": ["#e8e2da", "#d9b3b8", "#a8c0d6", "#9aa0a6", "#c48fa5", "#8fae9b", "#a898c4", "#f4efe8"],
+      "shot": "assets/img/themes/pearl/zhemchug.webp",
+      "description": "Огромная квадратная аватарка, тающая в фон, имя и метаданные прямо на фото, книжный текст с абзацным отступом. Инструменты сообщения свёрнуты под «⋯», чтобы не мешали читать. Пятнадцать расцветок — от светлого «Света» до тёмной «Сливы»; каждая ставится отдельным файлом.",
+      "palettes": [
+        "Жемчуг",
+        "Ваниль",
+        "Гортензия",
+        "Дым",
+        "Зефир",
+        "Иней",
+        "Лазурь",
+        "Мокко",
+        "Мята",
+        "Нефрит",
+        "Пудра",
+        "Роза",
+        "Румяна",
+        "Свет",
+        "Слива"
+      ],
+      "swatches": [
+        "#e6dde6",
+        "#9a7340",
+        "#cee5f5",
+        "#d3d6dc",
+        "#a33f69",
+        "#4e75ac",
+        "#a9c4e6",
+        "#e6b98f",
+        "#3f8c6a",
+        "#a4d8bd",
+        "#b5637f",
+        "#ecb6c6",
+        "#a83c34",
+        "#83619a",
+        "#ce85d9"
+      ],
       "platform": "Телефон",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "files/themes/pearl/pearl-zhemchug.json",
+        "readme": ""
+      },
+      "variants": [
+        {
+          "name": "Жемчуг",
+          "swatches": [
+            "#16141b",
+            "#e6dde6",
+            "#f1eaf3",
+            "#b6aabd"
+          ],
+          "shot": "assets/img/themes/pearl/zhemchug.webp",
+          "file": "files/themes/pearl/pearl-zhemchug.json"
+        },
+        {
+          "name": "Ваниль",
+          "swatches": [
+            "#f6efe2",
+            "#9a7340",
+            "#6a4423",
+            "#766344"
+          ],
+          "shot": "assets/img/themes/pearl/vanil.webp",
+          "file": "files/themes/pearl/pearl-vanil.json"
+        },
+        {
+          "name": "Гортензия",
+          "swatches": [
+            "#1e262c",
+            "#cee5f5",
+            "#e9f5fd",
+            "#b2cadb"
+          ],
+          "shot": "assets/img/themes/pearl/gortenziya.webp",
+          "file": "files/themes/pearl/pearl-gortenziya.json"
+        },
+        {
+          "name": "Дым",
+          "swatches": [
+            "#1a1a1e",
+            "#d3d6dc",
+            "#eef0f4",
+            "#a9adb6"
+          ],
+          "shot": "assets/img/themes/pearl/dym.webp",
+          "file": "files/themes/pearl/pearl-dym.json"
+        },
+        {
+          "name": "Зефир",
+          "swatches": [
+            "#f4dee5",
+            "#a33f69",
+            "#7a2b52",
+            "#6f4c5c"
+          ],
+          "shot": "assets/img/themes/pearl/zefir.webp",
+          "file": "files/themes/pearl/pearl-zefir.json"
+        },
+        {
+          "name": "Иней",
+          "swatches": [
+            "#e9eef6",
+            "#4e75ac",
+            "#2d4a6b",
+            "#566b86"
+          ],
+          "shot": "assets/img/themes/pearl/iney.webp",
+          "file": "files/themes/pearl/pearl-iney.json"
+        },
+        {
+          "name": "Лазурь",
+          "swatches": [
+            "#0f1622",
+            "#a9c4e6",
+            "#d6e6f7",
+            "#93aecb"
+          ],
+          "shot": "assets/img/themes/pearl/lazur.webp",
+          "file": "files/themes/pearl/pearl-lazur.json"
+        },
+        {
+          "name": "Мокко",
+          "swatches": [
+            "#1c1512",
+            "#e6b98f",
+            "#f7e0c8",
+            "#c0a086"
+          ],
+          "shot": "assets/img/themes/pearl/mokko.webp",
+          "file": "files/themes/pearl/pearl-mokko.json"
+        },
+        {
+          "name": "Мята",
+          "swatches": [
+            "#e9f2ec",
+            "#3f8c6a",
+            "#255744",
+            "#4f7566"
+          ],
+          "shot": "assets/img/themes/pearl/myata.webp",
+          "file": "files/themes/pearl/pearl-myata.json"
+        },
+        {
+          "name": "Нефрит",
+          "swatches": [
+            "#0f1a15",
+            "#a4d8bd",
+            "#d7f0e2",
+            "#8bb8a0"
+          ],
+          "shot": "assets/img/themes/pearl/nefrit.webp",
+          "file": "files/themes/pearl/pearl-nefrit.json"
+        },
+        {
+          "name": "Пудра",
+          "swatches": [
+            "#f7ecf0",
+            "#b5637f",
+            "#7a3556",
+            "#7f5a69"
+          ],
+          "shot": "assets/img/themes/pearl/pudra.webp",
+          "file": "files/themes/pearl/pearl-pudra.json"
+        },
+        {
+          "name": "Роза",
+          "swatches": [
+            "#1b1016",
+            "#ecb6c6",
+            "#f7d9e2",
+            "#c69aa8"
+          ],
+          "shot": "assets/img/themes/pearl/roza.webp",
+          "file": "files/themes/pearl/pearl-roza.json"
+        },
+        {
+          "name": "Румяна",
+          "swatches": [
+            "#f5dcd7",
+            "#a83c34",
+            "#7d2a22",
+            "#714a45"
+          ],
+          "shot": "assets/img/themes/pearl/rumyana.webp",
+          "file": "files/themes/pearl/pearl-rumyana.json"
+        },
+        {
+          "name": "Свет",
+          "swatches": [
+            "#efe9f1",
+            "#83619a",
+            "#553a66",
+            "#6a5a7c"
+          ],
+          "shot": "assets/img/themes/pearl/svet.webp",
+          "file": "files/themes/pearl/pearl-svet.json"
+        },
+        {
+          "name": "Слива",
+          "swatches": [
+            "#1d0f26",
+            "#ce85d9",
+            "#f2d8f8",
+            "#bb93c8"
+          ],
+          "shot": "assets/img/themes/pearl/sliva.webp",
+          "file": "files/themes/pearl/pearl-sliva.json"
+        }
+      ]
     },
     {
       "id": "first-act",
@@ -22,7 +224,10 @@
       "palettes": [],
       "swatches": [],
       "platform": "",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "",
+        "readme": ""
+      }
     },
     {
       "id": "glass-dark",
@@ -34,7 +239,10 @@
       "palettes": [],
       "swatches": [],
       "platform": "",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "",
+        "readme": ""
+      }
     },
     {
       "id": "glass-light",
@@ -46,9 +254,11 @@
       "palettes": [],
       "swatches": [],
       "platform": "",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "",
+        "readme": ""
+      }
     },
-
     {
       "id": "rework-1",
       "name": "Переделка 1",
@@ -60,7 +270,10 @@
       "palettes": [],
       "swatches": [],
       "platform": "Телефон",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "",
+        "readme": ""
+      }
     },
     {
       "id": "rework-2",
@@ -73,7 +286,10 @@
       "palettes": [],
       "swatches": [],
       "platform": "Телефон",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "",
+        "readme": ""
+      }
     },
     {
       "id": "rework-3",
@@ -86,7 +302,10 @@
       "palettes": [],
       "swatches": [],
       "platform": "Телефон",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "",
+        "readme": ""
+      }
     },
     {
       "id": "rework-4",
@@ -99,7 +318,10 @@
       "palettes": [],
       "swatches": [],
       "platform": "Телефон",
-      "files": { "json": "", "readme": "" }
+      "files": {
+        "json": "",
+        "readme": ""
+      }
     }
   ]
 }

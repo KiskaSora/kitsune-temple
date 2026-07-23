@@ -88,6 +88,21 @@ function closeModal() {
   if (location.hash.split('/').length > 2) history.replaceState(null, '', '#/' + location.hash.split('/')[1]);
 }
 modal.addEventListener('click', e => {
+  // переключение расцветок темы
+  const varEl = e.target.closest('[data-var]');
+  if (varEl) {
+    const id = modalBody.querySelector('[data-theme-id]').dataset.themeId;
+    const t = DATA.themes.items.find(x => x.id === id);
+    const v = t.variants[+varEl.dataset.var];
+    document.getElementById('varShot').innerHTML = cover(v.shot, v.name);
+    document.getElementById('varName').textContent = v.name;
+    const dl = document.getElementById('varDl');
+    dl.href = v.file;
+    dl.textContent = `Скачать «${v.name}»`;
+    modalBody.querySelectorAll('.var').forEach(b => b.classList.toggle('is-on', b === varEl));
+    return;
+  }
+
   // переключение аватарок в галерее персонажа
   const thumb = e.target.closest('[data-img]');
   if (thumb) {
@@ -468,6 +483,8 @@ function botSheet(b) {
 }
 
 function themeSheet(t) {
+  const vs = t.variants || [];
+  if (vs.length) return variantSheet(t, vs, 0);
   return `<div class="sheet">
     <div><div class="sheet__cover" style="aspect-ratio:9/16">${cover(t.shot, t.name)}</div></div>
     <div>
@@ -482,6 +499,34 @@ function themeSheet(t) {
           ? `<a class="btn btn--acc" href="${esc(t.files.json)}" download>Скачать JSON</a>`
           : `<span class="btn" style="opacity:.55;cursor:default">Файл ещё не залит</span>`}
         ${t.files && t.files.readme ? `<a class="btn" href="${esc(t.files.readme)}" target="_blank" rel="noopener">Как поставить</a>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+/** Тема с расцветками: слева скрин выбранной, справа выбор кружками. */
+function variantSheet(t, vs, i) {
+  const v = vs[i] || vs[0];
+  return `<div class="sheet" data-theme-id="${esc(t.id)}">
+    <div><div class="sheet__cover" style="aspect-ratio:9/16" id="varShot">${cover(v.shot, v.name)}</div></div>
+    <div>
+      <span class="kicker">${esc(t.platform || 'тема')}</span>
+      <h2>${esc(t.name)}</h2>
+      <p class="sheet__meta">${esc(t.tagline)}</p>
+      <p class="sheet__desc">${esc(t.description || '')}</p>
+
+      <div class="vars">
+        <b class="vars__lbl">Расцветка — <span id="varName">${esc(v.name)}</span></b>
+        <div class="vars__list">${vs.map((x, n) => `
+          <button class="var${n === i ? ' is-on' : ''}" data-var="${n}" title="${esc(x.name)}">
+            <span class="var__dot">${(x.swatches || []).slice(0, 4).map(c =>
+              `<i style="background:${esc(c)}"></i>`).join('')}</span>
+            <span class="var__name">${esc(x.name)}</span>
+          </button>`).join('')}</div>
+      </div>
+
+      <div class="row" style="margin-top:18px">
+        <a class="btn btn--acc" id="varDl" href="${esc(v.file)}" download>Скачать «${esc(v.name)}»</a>
       </div>
     </div>
   </div>`;
@@ -567,7 +612,11 @@ app.addEventListener('input', e => {
 addEventListener('hashchange', render);
 
 /* ------------------------- загрузка ------------------------ */
-const json = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
+// Версию берём из ?v= у самого скрипта: подняла цифру в index.html —
+// обновились и стили, и код, и данные. Иначе браузер держит старый JSON
+// и правки в data/*.json не видны часами.
+const VER = (document.querySelector('script[src*="app.js"]')?.src.split('?v=')[1]) || '0';
+const json = p => fetch(`${p}?v=${VER}`).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
 
 Promise.all([json('data/site.json'), json('data/bots.json'), json('data/themes.json'),
              json('data/extensions.json'), json('data/map.json')])
