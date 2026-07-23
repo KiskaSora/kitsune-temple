@@ -13,8 +13,7 @@
       "id": "hogwarts",
       "title": "Хогвартс",
       "sub": "Эпоха Мародёров: 1977–1979, война на пороге",
-      "cover": "assets/img/lines/marauders.webp",
-      "banner": "assets/img/lines/moony.webp"
+      "cover": "assets/img/lines/marauders.webp"
     }
   ],
   "items": [

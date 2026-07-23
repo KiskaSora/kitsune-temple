@@ -12,10 +12,11 @@ let filter = { line: 'all', q: '', nsfw: true };
 /* ------------------------- утилиты ------------------------- */
 const esc = (s = '') => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-/** Обложка-заглушка, пока картинка не залита: градиент из имени + первая буква. */
-function cover(src, name, cls = '', eager = false) {
-  // в модалке картинка видна сразу — там lazy только мешает
-  if (src) return `<img src="${esc(src)}" alt="${esc(name)}" class="${cls}"${eager ? '' : ' loading="lazy"'}>`;
+/** Обложка-заглушка, пока картинка не залита: градиент из имени + первая буква.
+    Ленивую загрузку не ставим: в части браузеров она не срабатывает и картинки
+    не появляются вовсе, а весь сайт лёгкий — выгода не стоит риска. */
+function cover(src, name, cls = '') {
+  if (src) return `<img src="${esc(src)}" alt="${esc(name)}" class="${cls}">`;
   let h = 0;
   for (const ch of String(name)) h = (h * 31 + ch.codePointAt(0)) % 360;
   return `<div class="ph ${cls}" style="background:
@@ -90,7 +91,7 @@ modal.addEventListener('click', e => {
   // переключение аватарок в галерее персонажа
   const thumb = e.target.closest('[data-img]');
   if (thumb) {
-    document.getElementById('sheetCover').innerHTML = cover(thumb.dataset.img, '', '', true);
+    document.getElementById('sheetCover').innerHTML = cover(thumb.dataset.img, '');
     modalBody.querySelectorAll('.thumb').forEach(t => t.classList.toggle('is-on', t === thumb));
     return;
   }
@@ -150,7 +151,7 @@ function extCard(x) {
 
 /** Скриншот «как это выглядит». Пустой путь — просто ничего не рисуем. */
 function shot(src, alt) {
-  return src ? `<figure class="shot"><img src="${esc(src)}" alt="${esc(alt || '')}" loading="lazy"></figure>` : '';
+  return src ? `<figure class="shot"><img src="${esc(src)}" alt="${esc(alt || '')}"></figure>` : '';
 }
 
 /** Внешний блок — виджет для ExtBlocks, ставится импортом JSON, а не по ссылке. */
@@ -199,7 +200,7 @@ function pin(b, i) {
   const rot = ((i % 5) - 2) * 1.5;
   return `<article class="pin" data-bot="${esc(b.id)}" style="--rot:${rot}deg">
     <span class="pin__tape" aria-hidden="true"></span>
-    <div class="pin__photo">${cover(b.cover, b.name, '', true)}</div>
+    <div class="pin__photo">${cover(b.cover, b.name)}</div>
     <div class="pin__cap">
       <b>${esc(b.name)}</b>
       ${b.tagline ? `<small>${esc(b.tagline)}</small>` : '<small class="pin__wip">материал не подшит</small>'}
@@ -269,7 +270,7 @@ function pageHome() {
     <div class="lines">${DATA.bots.lines.filter(l => b.some(i => i.line === l.id)).map(l => {
       const n = b.filter(i => i.line === l.id).length;
       return `<article class="line" data-line-go="${esc(l.id)}"${l.page ? ` data-page="${esc(l.page)}"` : ''}>
-        ${l.cover ? `<img class="line__bg" src="${esc(l.cover)}" alt="" loading="lazy">` : ''}
+        ${l.cover ? `<img class="line__bg" src="${esc(l.cover)}" alt="">` : ''}
         <span class="line__n">${n} ${plural(n, 'карточка', 'карточки', 'карточек')}</span>
         <h3>${esc(l.title)}</h3><p>${esc(l.sub)}</p>
       </article>`;
@@ -440,7 +441,7 @@ function botSheet(b) {
   const gallery = (b.gallery || []).filter(Boolean);
   return `<div class="sheet">
     <div>
-      <div class="sheet__cover" id="sheetCover">${cover(b.cover, b.name, "", true)}</div>
+      <div class="sheet__cover" id="sheetCover">${cover(b.cover, b.name)}</div>
       ${gallery.length > 1 ? `<div class="sheet__thumbs">${gallery.map((g, i) =>
         `<button class="thumb${i === 0 ? ' is-on' : ''}" data-img="${esc(g)}">
           <img src="${esc(g)}" alt=""></button>`).join('')}</div>` : ''}
@@ -468,7 +469,7 @@ function botSheet(b) {
 
 function themeSheet(t) {
   return `<div class="sheet">
-    <div><div class="sheet__cover" style="aspect-ratio:9/16">${cover(t.shot, t.name, "", true)}</div></div>
+    <div><div class="sheet__cover" style="aspect-ratio:9/16">${cover(t.shot, t.name)}</div></div>
     <div>
       <span class="kicker">${esc(t.platform || 'тема')}</span>
       <h2>${esc(t.name)}</h2>
